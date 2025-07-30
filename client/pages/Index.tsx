@@ -37,13 +37,21 @@ const testimonials = [
 
 export default function Index() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   // Demo images for slideshow - these would be replaced with actual photos
   const heroImages = [
     '/placeholder.svg',
-    '/placeholder.svg', 
+    '/placeholder.svg',
     '/placeholder.svg'
   ];
+
+  // Auto-advance slideshow
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [heroImages.length]);
 
   return (
     <div className="min-h-screen bg-background">
