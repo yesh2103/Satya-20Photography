@@ -14,6 +14,25 @@ export default {
     },
     extend: {
       colors: {
+        gold: {
+          50: "hsl(48, 100%, 95%)",
+          100: "hsl(48, 100%, 88%)",
+          200: "hsl(48, 100%, 78%)",
+          300: "hsl(48, 100%, 68%)",
+          400: "hsl(45, 100%, 60%)",
+          500: "hsl(42, 100%, 50%)",
+          600: "hsl(38, 100%, 45%)",
+          700: "hsl(34, 100%, 40%)",
+          800: "hsl(30, 100%, 35%)",
+          900: "hsl(26, 100%, 30%)",
+        },
+        luxury: {
+          black: "hsl(0, 0%, 8%)",
+          "dark-gray": "hsl(0, 0%, 12%)",
+          "medium-gray": "hsl(0, 0%, 20%)",
+          gold: "hsl(45, 100%, 60%)",
+          "light-gold": "hsl(45, 100%, 85%)",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
