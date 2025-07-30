@@ -67,7 +67,7 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your_email@gmail.com
 SMTP_PASS=your_app_password
-OWNER_EMAIL=owner@satyaphotography.com
+OWNER_EMAIL=Rajkarthikeya10@gmail.com
 ```
 
 ### 3. Database Setup
