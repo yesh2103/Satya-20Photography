@@ -328,19 +328,19 @@ export default function Index() {
                 <div className="flex items-center space-x-2">
                   <Mail className="h-4 w-4 text-gold-400" />
                   <span className="text-muted-foreground">
-                    info@satyaphotography.com
+                    Rajkarthikeya10@gmail.com
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4 text-gold-400" />
                   <span className="text-muted-foreground">
-                    +91 98765 43210
+                    +91 8374877776
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <MapPin className="h-4 w-4 text-gold-400" />
                   <span className="text-muted-foreground">
-                    Hyderabad, India
+                    Hanamkonda, Warangal, Telangana
                   </span>
                 </div>
               </div>
