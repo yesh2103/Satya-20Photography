@@ -233,14 +233,14 @@ class EmailService {
             
             <p>In the meantime, feel free to browse our <a href="#" style="color: #FFD700;">portfolio</a> to see more of our work.</p>
             
-            <p>If you have any urgent questions, feel free to call us at <strong>+91 98765 43210</strong>.</p>
+            <p>If you have any urgent questions, feel free to call us at <strong>+91 8374877776</strong>.</p>
             
             <p>Best regards,<br>
             <strong>Satya Photography Team</strong></p>
           </div>
           
           <div class="footer">
-            <p>📧 info@satyaphotography.com | 📞 +91 98765 43210 | 📍 Hyderabad, India</p>
+            <p>📧 Rajkarthikeya10@gmail.com | 📞 +91 8374877776 | 📍 Hanamkonda, Warangal, Telangana</p>
             <p>© 2024 Satya Photography - Capturing Life's Golden Moments</p>
           </div>
         </div>
