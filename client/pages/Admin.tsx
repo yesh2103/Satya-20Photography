@@ -90,7 +90,7 @@ export default function Admin() {
       id: '1',
       name: 'Priya Sharma',
       email: 'priya@example.com',
-      phone: '+91 98765 43210',
+      phone: '+91 8374877776',
       event_type: 'wedding',
       event_date: '2024-06-15',
       message: 'Looking for wedding photography for our destination wedding in Goa.',
