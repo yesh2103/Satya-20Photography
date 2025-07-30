@@ -1,4 +1,4 @@
-import PlaceholderPage from './Placeholder';
+import PlaceholderPage from "./Placeholder";
 
 export default function Packages() {
   return (
@@ -10,7 +10,7 @@ export default function Packages() {
         "Event photography pricing",
         "Portrait session options",
         "Add-on services and extras",
-        "Custom package builder"
+        "Custom package builder",
       ]}
     />
   );

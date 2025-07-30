@@ -1,4 +1,4 @@
-import PlaceholderPage from './Placeholder';
+import PlaceholderPage from "./Placeholder";
 
 export default function About() {
   return (
@@ -10,7 +10,7 @@ export default function About() {
         "Studio information and philosophy",
         "Awards and recognition",
         "Team introduction",
-        "Behind the scenes content"
+        "Behind the scenes content",
       ]}
     />
   );

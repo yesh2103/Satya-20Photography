@@ -1,40 +1,64 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Camera, Mail, Phone, MapPin, CalendarIcon, Send, Instagram, Facebook } from 'lucide-react';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
-import type { ContactFormData, ServiceType } from '@shared/types';
-import { SERVICE_TYPES } from '@shared/types';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Camera,
+  Mail,
+  Phone,
+  MapPin,
+  CalendarIcon,
+  Send,
+  Instagram,
+  Facebook,
+} from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
+import type { ContactFormData, ServiceType } from "@shared/types";
+import { SERVICE_TYPES } from "@shared/types";
 
 export default function Contact() {
   const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    phone: '',
-    event_type: 'wedding',
-    event_date: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    event_type: "wedding",
+    event_date: "",
+    message: "",
   });
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
   const handleInputChange = (field: keyof ContactFormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleDateSelect = (date: Date | undefined) => {
     if (date) {
       setSelectedDate(date);
-      setFormData(prev => ({ ...prev, event_date: format(date, 'yyyy-MM-dd') }));
+      setFormData((prev) => ({
+        ...prev,
+        event_date: format(date, "yyyy-MM-dd"),
+      }));
     }
   };
 
@@ -50,40 +74,40 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
-      setSubmitStatus('error');
+      setSubmitStatus("error");
       return;
     }
 
     setIsSubmitting(true);
-    
+
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        setSubmitStatus('success');
+        setSubmitStatus("success");
         setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          event_type: 'wedding',
-          event_date: '',
-          message: ''
+          name: "",
+          email: "",
+          phone: "",
+          event_type: "wedding",
+          event_date: "",
+          message: "",
         });
         setSelectedDate(undefined);
       } else {
-        setSubmitStatus('error');
+        setSubmitStatus("error");
       }
     } catch (error) {
-      console.error('Contact form submission error:', error);
-      setSubmitStatus('error');
+      console.error("Contact form submission error:", error);
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -97,16 +121,43 @@ export default function Contact() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Camera className="h-8 w-8 text-gold-400" />
-              <h1 className="text-2xl font-serif font-bold text-foreground">Satya Photography</h1>
+              <h1 className="text-2xl font-serif font-bold text-foreground">
+                Satya Photography
+              </h1>
             </div>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-foreground hover:text-gold-400 transition-colors">Home</Link>
-              <Link to="/gallery" className="text-foreground hover:text-gold-400 transition-colors">Gallery</Link>
-              <Link to="/about" className="text-foreground hover:text-gold-400 transition-colors">About</Link>
-              <Link to="/packages" className="text-foreground hover:text-gold-400 transition-colors">Packages</Link>
-              <Link to="/contact" className="text-gold-400">Contact</Link>
+              <Link
+                to="/"
+                className="text-foreground hover:text-gold-400 transition-colors"
+              >
+                Home
+              </Link>
+              <Link
+                to="/gallery"
+                className="text-foreground hover:text-gold-400 transition-colors"
+              >
+                Gallery
+              </Link>
+              <Link
+                to="/about"
+                className="text-foreground hover:text-gold-400 transition-colors"
+              >
+                About
+              </Link>
+              <Link
+                to="/packages"
+                className="text-foreground hover:text-gold-400 transition-colors"
+              >
+                Packages
+              </Link>
+              <Link to="/contact" className="text-gold-400">
+                Contact
+              </Link>
               <Link to="/login">
-                <Button variant="outline" className="border-gold-400 text-gold-400 hover:bg-gold-400 hover:text-luxury-black">
+                <Button
+                  variant="outline"
+                  className="border-gold-400 text-gold-400 hover:bg-gold-400 hover:text-luxury-black"
+                >
                   Login
                 </Button>
               </Link>
@@ -119,9 +170,12 @@ export default function Contact() {
         <div className="container mx-auto max-w-6xl">
           {/* Page Header */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-serif mb-4 text-foreground">Get In Touch</h1>
+            <h1 className="text-4xl md:text-5xl font-serif mb-4 text-foreground">
+              Get In Touch
+            </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Ready to capture your special moments? Fill out the form below and we'll get back to you within 24 hours.
+              Ready to capture your special moments? Fill out the form below and
+              we'll get back to you within 24 hours.
             </p>
           </div>
 
@@ -130,19 +184,27 @@ export default function Contact() {
             <div>
               <Card className="border-luxury-medium-gray bg-card">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-serif text-foreground">Send us a message</CardTitle>
-                  <p className="text-muted-foreground">Please note: You must be logged in to submit this form</p>
+                  <CardTitle className="text-2xl font-serif text-foreground">
+                    Send us a message
+                  </CardTitle>
+                  <p className="text-muted-foreground">
+                    Please note: You must be logged in to submit this form
+                  </p>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Name Field */}
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="text-foreground">Full Name *</Label>
+                      <Label htmlFor="name" className="text-foreground">
+                        Full Name *
+                      </Label>
                       <Input
                         id="name"
                         type="text"
                         value={formData.name}
-                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("name", e.target.value)
+                        }
                         placeholder="Enter your full name"
                         required
                         className="bg-input border-luxury-medium-gray text-foreground"
@@ -151,12 +213,16 @@ export default function Contact() {
 
                     {/* Email Field */}
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-foreground">Email Address *</Label>
+                      <Label htmlFor="email" className="text-foreground">
+                        Email Address *
+                      </Label>
                       <Input
                         id="email"
                         type="email"
                         value={formData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
                         placeholder="Enter your email address"
                         required
                         className="bg-input border-luxury-medium-gray text-foreground"
@@ -165,12 +231,16 @@ export default function Contact() {
 
                     {/* Phone Field */}
                     <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-foreground">Phone Number *</Label>
+                      <Label htmlFor="phone" className="text-foreground">
+                        Phone Number *
+                      </Label>
                       <Input
                         id="phone"
                         type="tel"
                         value={formData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("phone", e.target.value)
+                        }
                         placeholder="Enter your phone number"
                         required
                         className="bg-input border-luxury-medium-gray text-foreground"
@@ -179,10 +249,14 @@ export default function Contact() {
 
                     {/* Event Type Dropdown */}
                     <div className="space-y-2">
-                      <Label htmlFor="event_type" className="text-foreground">Event Type *</Label>
+                      <Label htmlFor="event_type" className="text-foreground">
+                        Event Type *
+                      </Label>
                       <Select
                         value={formData.event_type}
-                        onValueChange={(value: ServiceType) => handleInputChange('event_type', value)}
+                        onValueChange={(value: ServiceType) =>
+                          handleInputChange("event_type", value)
+                        }
                         required
                       >
                         <SelectTrigger className="bg-input border-luxury-medium-gray text-foreground">
@@ -190,7 +264,11 @@ export default function Contact() {
                         </SelectTrigger>
                         <SelectContent className="bg-popover border-luxury-medium-gray">
                           {SERVICE_TYPES.map((service) => (
-                            <SelectItem key={service.value} value={service.value} className="text-foreground hover:bg-accent">
+                            <SelectItem
+                              key={service.value}
+                              value={service.value}
+                              className="text-foreground hover:bg-accent"
+                            >
                               {service.label}
                             </SelectItem>
                           ))}
@@ -200,18 +278,22 @@ export default function Contact() {
 
                     {/* Event Date Picker */}
                     <div className="space-y-2">
-                      <Label htmlFor="event_date" className="text-foreground">Date of Event *</Label>
+                      <Label htmlFor="event_date" className="text-foreground">
+                        Date of Event *
+                      </Label>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
                             className={cn(
                               "w-full justify-start text-left font-normal bg-input border-luxury-medium-gray text-foreground",
-                              !selectedDate && "text-muted-foreground"
+                              !selectedDate && "text-muted-foreground",
                             )}
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
-                            {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
+                            {selectedDate
+                              ? format(selectedDate, "PPP")
+                              : "Pick a date"}
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0 bg-popover border-luxury-medium-gray">
@@ -229,11 +311,15 @@ export default function Contact() {
 
                     {/* Message Field */}
                     <div className="space-y-2">
-                      <Label htmlFor="message" className="text-foreground">Message (Optional)</Label>
+                      <Label htmlFor="message" className="text-foreground">
+                        Message (Optional)
+                      </Label>
                       <Textarea
                         id="message"
                         value={formData.message}
-                        onChange={(e) => handleInputChange('message', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("message", e.target.value)
+                        }
                         placeholder="Tell us more about your event, special requirements, or any questions you have..."
                         rows={4}
                         className="bg-input border-luxury-medium-gray text-foreground resize-none"
@@ -257,18 +343,20 @@ export default function Contact() {
                     </Button>
 
                     {/* Status Messages */}
-                    {submitStatus === 'success' && (
+                    {submitStatus === "success" && (
                       <div className="p-4 bg-green-900/20 border border-green-800 rounded-lg">
                         <p className="text-green-400 text-center">
-                          Thank you! Your message has been sent successfully. We'll get back to you within 24 hours.
+                          Thank you! Your message has been sent successfully.
+                          We'll get back to you within 24 hours.
                         </p>
                       </div>
                     )}
 
-                    {submitStatus === 'error' && (
+                    {submitStatus === "error" && (
                       <div className="p-4 bg-red-900/20 border border-red-800 rounded-lg">
                         <p className="text-red-400 text-center">
-                          Sorry, there was an error sending your message. Please try again or contact us directly.
+                          Sorry, there was an error sending your message. Please
+                          try again or contact us directly.
                         </p>
                       </div>
                     )}
@@ -282,7 +370,9 @@ export default function Contact() {
               {/* Contact Details */}
               <Card className="border-luxury-medium-gray bg-card">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-serif text-foreground">Contact Information</CardTitle>
+                  <CardTitle className="text-2xl font-serif text-foreground">
+                    Contact Information
+                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="flex items-center space-x-4">
@@ -291,7 +381,9 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground">Email</h3>
-                      <p className="text-muted-foreground">info@satyaphotography.com</p>
+                      <p className="text-muted-foreground">
+                        info@satyaphotography.com
+                      </p>
                     </div>
                   </div>
 
@@ -310,7 +402,9 @@ export default function Contact() {
                       <MapPin className="h-6 w-6 text-gold-400" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground">Location</h3>
+                      <h3 className="font-semibold text-foreground">
+                        Location
+                      </h3>
                       <p className="text-muted-foreground">Hyderabad, India</p>
                     </div>
                   </div>
@@ -320,17 +414,23 @@ export default function Contact() {
               {/* Business Hours */}
               <Card className="border-luxury-medium-gray bg-card">
                 <CardHeader>
-                  <CardTitle className="text-xl font-serif text-foreground">Business Hours</CardTitle>
+                  <CardTitle className="text-xl font-serif text-foreground">
+                    Business Hours
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Monday - Friday</span>
+                      <span className="text-muted-foreground">
+                        Monday - Friday
+                      </span>
                       <span className="text-foreground">9:00 AM - 7:00 PM</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Saturday</span>
-                      <span className="text-foreground">10:00 AM - 6:00 PM</span>
+                      <span className="text-foreground">
+                        10:00 AM - 6:00 PM
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Sunday</span>
@@ -343,7 +443,9 @@ export default function Contact() {
               {/* Social Media */}
               <Card className="border-luxury-medium-gray bg-card">
                 <CardHeader>
-                  <CardTitle className="text-xl font-serif text-foreground">Follow Us</CardTitle>
+                  <CardTitle className="text-xl font-serif text-foreground">
+                    Follow Us
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex space-x-4">

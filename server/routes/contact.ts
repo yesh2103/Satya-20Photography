@@ -5,12 +5,21 @@ import { SERVICE_TYPES } from "@shared/types";
 
 // Validation schema for contact form
 const contactFormSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters").max(100, "Name too long"),
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name too long"),
   email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits").max(15, "Phone number too long"),
-  event_type: z.enum(SERVICE_TYPES.map(s => s.value) as [string, ...string[]], {
-    errorMap: () => ({ message: "Invalid event type" })
-  }),
+  phone: z
+    .string()
+    .min(10, "Phone number must be at least 10 digits")
+    .max(15, "Phone number too long"),
+  event_type: z.enum(
+    SERVICE_TYPES.map((s) => s.value) as [string, ...string[]],
+    {
+      errorMap: () => ({ message: "Invalid event type" }),
+    },
+  ),
   event_date: z.string().refine((date) => {
     const eventDate = new Date(date);
     const today = new Date();
@@ -48,7 +57,6 @@ export const handleContactForm: RequestHandler = async (req, res) => {
       message: "Contact form submitted successfully",
       submission_id: submission.id,
     });
-
   } catch (error) {
     console.error("Contact form submission error:", error);
 
@@ -71,7 +79,9 @@ export const handleContactForm: RequestHandler = async (req, res) => {
 async function simulateEmailSending(data: ContactFormData): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log(`📧 Email sent to owner about ${data.event_type} inquiry from ${data.name}`);
+      console.log(
+        `📧 Email sent to owner about ${data.event_type} inquiry from ${data.name}`,
+      );
       console.log(`📧 Confirmation email sent to ${data.email}`);
       resolve();
     }, 1000);
@@ -84,14 +94,13 @@ export const getContactSubmissions: RequestHandler = async (req, res) => {
     // In a real implementation, you would:
     // 1. Verify user is authenticated and has owner role
     // 2. Fetch submissions from database
-    
+
     // For now, return empty array
     res.json({
       success: true,
       submissions: [],
       message: "Contact submissions retrieved successfully",
     });
-
   } catch (error) {
     console.error("Error fetching contact submissions:", error);
     res.status(500).json({

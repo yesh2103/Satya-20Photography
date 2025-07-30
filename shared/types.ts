@@ -1,17 +1,17 @@
 // Shared types for Satya Photography application
 
-export type UserRole = 'user' | 'owner';
+export type UserRole = "user" | "owner";
 
-export type ServiceType = 
-  | 'wedding' 
-  | 'prewedding' 
-  | 'newborn' 
-  | 'birthdays' 
-  | 'retirement' 
-  | 'events' 
-  | 'engagement';
+export type ServiceType =
+  | "wedding"
+  | "prewedding"
+  | "newborn"
+  | "birthdays"
+  | "retirement"
+  | "events"
+  | "engagement";
 
-export type MediaType = 'photo' | 'video';
+export type MediaType = "photo" | "video";
 
 export interface User {
   id: string;
@@ -63,16 +63,16 @@ export interface ContactFormData {
 }
 
 export const SERVICE_TYPES: { value: ServiceType; label: string }[] = [
-  { value: 'wedding', label: 'Wedding' },
-  { value: 'prewedding', label: 'Pre-wedding' },
-  { value: 'newborn', label: 'New Born Photoshoot' },
-  { value: 'birthdays', label: 'Birthdays' },
-  { value: 'retirement', label: 'Retirement' },
-  { value: 'events', label: 'Events' },
-  { value: 'engagement', label: 'Engagement' },
+  { value: "wedding", label: "Wedding" },
+  { value: "prewedding", label: "Pre-wedding" },
+  { value: "newborn", label: "New Born Photoshoot" },
+  { value: "birthdays", label: "Birthdays" },
+  { value: "retirement", label: "Retirement" },
+  { value: "events", label: "Events" },
+  { value: "engagement", label: "Engagement" },
 ];
 
 export const MEDIA_TYPES: { value: MediaType; label: string }[] = [
-  { value: 'photo', label: 'Photo' },
-  { value: 'video', label: 'Video' },
+  { value: "photo", label: "Photo" },
+  { value: "video", label: "Video" },
 ];

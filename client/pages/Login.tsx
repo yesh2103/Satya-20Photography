@@ -1,4 +1,4 @@
-import PlaceholderPage from './Placeholder';
+import PlaceholderPage from "./Placeholder";
 
 export default function Login() {
   return (
@@ -10,7 +10,7 @@ export default function Login() {
         "Email/password authentication",
         "User registration form",
         "Admin login portal",
-        "Password recovery"
+        "Password recovery",
       ]}
     />
   );
