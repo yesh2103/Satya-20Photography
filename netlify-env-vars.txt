@@ -1,0 +1,27 @@
+# Copy these environment variables to your Netlify dashboard:
+# Site settings → Environment variables
+
+# Supabase Configuration
+VITE_SUPABASE_URL=https://qvltkifxjmxbqdzcapvl.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2bHRraWZ4am14YnFkemNhcHZsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4NTQ0NTgsImV4cCI6MjA2OTQzMDQ1OH0.VxdpIuqOkYesd6Ldq6gfRcUPJx-_rWHOah1bOrSMHcc
+
+# Email Configuration (Replace SMTP_PASS with your Gmail app password)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=Rajkarthikeya10@gmail.com
+SMTP_PASS=your-gmail-app-password-here
+OWNER_EMAIL=Rajkarthikeya10@gmail.com
+
+# Production Settings
+NODE_ENV=production
+
+# Instructions:
+# 1. Go to Netlify dashboard
+# 2. Select your site
+# 3. Go to Site settings → Environment variables
+# 4. Add each variable above
+# 5. For SMTP_PASS, generate a Gmail App Password:
+#    - Enable 2FA on your Gmail account
+#    - Go to Google Account → Security → App passwords
+#    - Generate password for "Mail"
+#    - Use that 16-character password for SMTP_PASS
