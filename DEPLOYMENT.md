@@ -69,7 +69,7 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your-email@gmail.com
 SMTP_PASS=your-app-password
-OWNER_EMAIL=owner@satyaphotography.com
+OWNER_EMAIL=Rajkarthikeya10@gmail.com
 
 # Production
 NODE_ENV=production
@@ -130,7 +130,7 @@ NODE_ENV=production
 | `SMTP_PORT` | Email server port | Yes | `587` |
 | `SMTP_USER` | Email username | Yes | `your-email@gmail.com` |
 | `SMTP_PASS` | Email password/app password | Yes | `your-app-password` |
-| `OWNER_EMAIL` | Owner's email for notifications | Yes | `owner@satyaphotography.com` |
+| `OWNER_EMAIL` | Owner's email for notifications | Yes | `Rajkarthikeya10@gmail.com` |
 | `NODE_ENV` | Environment mode | No | `production` |
 
 ## Troubleshooting
