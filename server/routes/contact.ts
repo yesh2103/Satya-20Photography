@@ -1,7 +1,27 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
-import type { ContactFormData } from "@shared/types";
-import { SERVICE_TYPES } from "@shared/types";
+
+// Local types to avoid circular dependency with shared types during vite config loading
+type ServiceType = 'wedding' | 'prewedding' | 'newborn' | 'birthdays' | 'retirement' | 'events' | 'engagement';
+
+interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+  event_type: ServiceType;
+  event_date: string;
+  message?: string;
+}
+
+const SERVICE_TYPES: { value: ServiceType; label: string }[] = [
+  { value: 'wedding', label: 'Wedding' },
+  { value: 'prewedding', label: 'Pre-wedding' },
+  { value: 'newborn', label: 'New Born Photoshoot' },
+  { value: 'birthdays', label: 'Birthdays' },
+  { value: 'retirement', label: 'Retirement' },
+  { value: 'events', label: 'Events' },
+  { value: 'engagement', label: 'Engagement' },
+];
 
 // Validation schema for contact form
 const contactFormSchema = z.object({
