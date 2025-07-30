@@ -69,8 +69,17 @@ export const handleContactForm: RequestHandler = async (req, res) => {
       submitted_at: new Date().toISOString(),
     };
 
-    // Simulate email sending (this would be replaced with actual email service)
-    await simulateEmailSending(validatedData);
+    // Send email notifications
+    try {
+      const emailService = await import('../services/emailService');
+      await Promise.all([
+        emailService.emailService.sendOwnerNotification(validatedData),
+        emailService.emailService.sendUserConfirmation(validatedData)
+      ]);
+    } catch (emailError) {
+      console.error('Email sending failed, but form was submitted:', emailError);
+      // Don't fail the request if email fails - form submission is more important
+    }
 
     res.status(201).json({
       success: true,
