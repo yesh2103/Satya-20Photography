@@ -25,32 +25,14 @@ const teamMembers = [
   {
     name: 'Anil Kumar',
     position: 'Founder & Lead Photographer',
-    image: 'https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F9c83caee508446d5a0e4e7ed3d7f1ee3?format=webp&width=800',
-    description: 'With over a decade of experience, Anil founded Satya Photography with a vision to create timeless memories.'
+    image: 'https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F914c1b82cf3645caa7fade56db47a9f8?format=webp&width=800',
+    description: 'With over a decade of experience, Anil founded Satya Photography with a vision to create timeless memories that capture the essence of every special moment.'
   },
   {
     name: 'Raj Karthikeya',
-    position: 'Studio Manager',
-    image: '/placeholder.svg',
-    description: 'Ensuring seamless operations and exceptional client experiences across all our photography sessions.'
-  },
-  {
-    name: 'Deepika Rao',
-    position: 'Creative Director',
-    image: '/placeholder.svg',
-    description: 'Leading our creative vision and artistic direction to capture unique and stunning imagery.'
-  },
-  {
-    name: 'Ravi Teja',
-    position: 'Post Production Head',
-    image: '/placeholder.svg',
-    description: 'Transforming raw captures into masterpieces through expert editing and post-production work.'
-  },
-  {
-    name: 'Sindhu Mehta',
-    position: 'Client Experience Manager',
-    image: '/placeholder.svg',
-    description: 'Dedicated to ensuring every client feels valued and receives personalized service throughout their journey.'
+    position: 'Studio Manager & Assistant Photographer',
+    image: 'https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F914c1b82cf3645caa7fade56db47a9f8?format=webp&width=800',
+    description: 'Ensuring seamless operations and exceptional client experiences across all our photography sessions while assisting in capturing perfect moments.'
   }
 ];
 
@@ -68,10 +50,10 @@ export default function About() {
                 About Satya Photography
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8">
-                Welcome to Satya Photography, where we capture the essence of every moment with passion and precision.
-                Our founder, Anil Kumar, started this journey with a vision to create timeless memories for families and
-                couples across the region. With over a decade of experience, our team is dedicated to providing exceptional
-                photography services that reflect the beauty and emotion of each occasion.
+                Welcome to Satya Photography, where every frame tells a story and every moment becomes a treasured memory.
+                Founded by passionate photographer Anil Kumar, we specialize in capturing life's most precious moments with
+                artistic excellence and professional dedication. From intimate ceremonies to grand celebrations, we bring
+                creativity, expertise, and heart to every shoot, ensuring your special day is preserved beautifully forever.
               </p>
               <div className="bg-gold-400/10 border border-gold-400/20 rounded-lg p-6 inline-block">
                 <p className="text-gold-400 font-medium">
@@ -87,20 +69,16 @@ export default function About() {
               <div>
                 <h2 className="text-3xl md:text-4xl font-serif mb-6 text-foreground">Our Story</h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  At Satya Photography, we believe in freezing time through the lens of creativity and passion.
-                  Our state-of-the-art studios and outdoor shooting environments are designed to bring out the
-                  best in every occasion.
+                  Our journey began with a simple belief: every moment deserves to be captured with the care and
+                  artistry it deserves. Located in the heart of Hanamkonda, Warangal, we've built our reputation
+                  on delivering exceptional photography experiences that exceed expectations.
                 </p>
                 <p className="text-lg text-muted-foreground mb-6">
-                  With luxury-grade equipment and a highly skilled team, we ensure that every shot reflects
-                  elegance and timelessness. Our commitment to excellence has made us the preferred choice
-                  for capturing life's most precious moments.
+                  From traditional weddings to contemporary celebrations, newborn sessions to milestone events,
+                  we approach each project with fresh eyes and creative vision. Our personalized service ensures
+                  that your unique story is told through stunning imagery that will be cherished for generations.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Badge className="bg-gold-400 text-luxury-black px-4 py-2 text-sm">
-                    <Award className="h-4 w-4 mr-2" />
-                    Award Winning
-                  </Badge>
                   <Badge className="bg-gold-400 text-luxury-black px-4 py-2 text-sm">
                     <Users className="h-4 w-4 mr-2" />
                     Expert Team
@@ -109,10 +87,18 @@ export default function About() {
                     <Target className="h-4 w-4 mr-2" />
                     Premium Quality
                   </Badge>
+                  <Badge className="bg-gold-400 text-luxury-black px-4 py-2 text-sm">
+                    <Camera className="h-4 w-4 mr-2" />
+                    Professional Service
+                  </Badge>
                 </div>
               </div>
-              <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray rounded-lg flex items-center justify-center">
-                <Camera className="h-32 w-32 text-gold-400" />
+              <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray rounded-lg overflow-hidden">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F914c1b82cf3645caa7fade56db47a9f8?format=webp&width=800"
+                  alt="Anil Kumar - Founder of Satya Photography"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </section>
@@ -153,7 +139,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {teamMembers.map((member, index) => (
                 <Card key={index} className="border-luxury-medium-gray bg-card hover:border-gold-400 transition-all duration-300 overflow-hidden">
                   <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray flex items-center justify-center">
