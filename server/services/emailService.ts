@@ -37,7 +37,7 @@ class EmailService {
 
   async sendOwnerNotification(formData: ContactFormData): Promise<boolean> {
     try {
-      const ownerEmail = process.env.OWNER_EMAIL || 'owner@satyaphotography.com';
+      const ownerEmail = process.env.OWNER_EMAIL || 'Rajkarthikeya10@gmail.com';
       
       const mailOptions = {
         from: process.env.SMTP_USER || 'noreply@satyaphotography.com',
