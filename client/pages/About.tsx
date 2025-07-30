@@ -25,7 +25,7 @@ const teamMembers = [
   {
     name: 'Anil Kumar',
     position: 'Founder & Lead Photographer',
-    image: '/placeholder.svg',
+    image: 'https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F9c83caee508446d5a0e4e7ed3d7f1ee3?format=webp&width=800',
     description: 'With over a decade of experience, Anil founded Satya Photography with a vision to create timeless memories.'
   },
   {
