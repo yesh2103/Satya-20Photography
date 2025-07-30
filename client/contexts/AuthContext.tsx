@@ -118,7 +118,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           });
 
         if (profileError) {
-          console.error('Error creating user profile:', profileError);
+          console.error('Error creating user profile:', JSON.stringify(profileError, null, 2));
+          // Return the error to show to user
+          return { error: { message: `Failed to create user profile: ${profileError.message}` } as AuthError };
         }
       }
 
