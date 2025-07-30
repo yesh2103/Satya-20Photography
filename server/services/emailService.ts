@@ -16,7 +16,7 @@ class EmailService {
     // Create transporter based on environment
     if (process.env.NODE_ENV === 'production') {
       // Production SMTP configuration
-      this.transporter = nodemailer.createTransporter({
+      this.transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST || 'smtp.gmail.com',
         port: parseInt(process.env.SMTP_PORT || '587'),
         secure: false, // true for 465, false for other ports
@@ -27,7 +27,7 @@ class EmailService {
       });
     } else {
       // Development mode - log emails instead of sending
-      this.transporter = nodemailer.createTransporter({
+      this.transporter = nodemailer.createTransport({
         streamTransport: true,
         newline: 'unix',
         buffer: true,
