@@ -128,7 +128,7 @@ CREATE INDEX idx_packages_service_type ON packages(service_type);
 
 -- Sample data (for development)
 INSERT INTO users (name, email, role) VALUES 
-('Satya Photography', 'owner@satyaphotography.com', 'owner'),
+('Satya Photography', 'Rajkarthikeya10@gmail.com', 'owner'),
 ('John Doe', 'john@example.com', 'user');
 
 INSERT INTO packages (title, description, price_range, service_type, created_by) VALUES 
