@@ -73,8 +73,8 @@ export const handleContactForm: RequestHandler = async (req, res) => {
     try {
       const emailService = await import('../services/emailService');
       await Promise.all([
-        emailService.emailService.sendOwnerNotification(validatedData),
-        emailService.emailService.sendUserConfirmation(validatedData)
+        emailService.emailService.sendOwnerNotification(validatedData as ContactFormData),
+        emailService.emailService.sendUserConfirmation(validatedData as ContactFormData)
       ]);
     } catch (emailError) {
       console.error('Email sending failed, but form was submitted:', emailError);
