@@ -279,7 +279,7 @@ export default function Contact() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground">Email</h3>
-                        <p className="text-muted-foreground">info@satyaphotography.com</p>
+                        <p className="text-muted-foreground">Rajkarthikeya10@gmail.com</p>
                       </div>
                     </div>
 
@@ -289,7 +289,7 @@ export default function Contact() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground">Phone</h3>
-                        <p className="text-muted-foreground">+91 98765 43210</p>
+                        <p className="text-muted-foreground">+91 8374877776</p>
                       </div>
                     </div>
 
@@ -299,7 +299,7 @@ export default function Contact() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground">Location</h3>
-                        <p className="text-muted-foreground">Hyderabad, India</p>
+                        <p className="text-muted-foreground">Hanamkonda, Warangal, Telangana</p>
                       </div>
                     </div>
                   </CardContent>
