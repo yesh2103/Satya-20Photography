@@ -104,18 +104,7 @@ export const handleContactForm: RequestHandler = async (req, res) => {
   }
 };
 
-// Simulate email sending function
-async function simulateEmailSending(data: ContactFormData): Promise<void> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log(
-        `📧 Email sent to owner about ${data.event_type} inquiry from ${data.name}`,
-      );
-      console.log(`📧 Confirmation email sent to ${data.email}`);
-      resolve();
-    }, 1000);
-  });
-}
+
 
 // Get all contact form submissions (owner only)
 export const getContactSubmissions: RequestHandler = async (req, res) => {
