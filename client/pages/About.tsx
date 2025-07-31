@@ -142,13 +142,12 @@ export default function About() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {teamMembers.map((member, index) => (
                 <Card key={index} className="border-luxury-medium-gray bg-card hover:border-gold-400 transition-all duration-300 overflow-hidden">
-                  <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray flex items-center justify-center relative">
+                  <div className="aspect-[4/5] bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray p-4">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-contain rounded-lg"
                     />
-                    <div className="absolute inset-0 bg-black/10"></div>
                   </div>
                   <CardContent className="p-6 text-center">
                     <h3 className="text-xl font-serif font-bold text-foreground mb-2">{member.name}</h3>
