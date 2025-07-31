@@ -93,11 +93,11 @@ export default function About() {
                   </Badge>
                 </div>
               </div>
-              <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray rounded-lg overflow-hidden">
+              <div className="aspect-[4/5] bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray rounded-lg overflow-hidden p-4">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F26b40152b13e48bd972f962f590996b9?format=webp&width=800"
                   alt="Anil Kumar - Founder of Satya Photography"
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-contain rounded-lg"
                 />
               </div>
             </div>
