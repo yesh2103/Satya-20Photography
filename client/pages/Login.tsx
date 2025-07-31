@@ -160,9 +160,9 @@ export default function Login() {
       <div className="py-12 px-6">
         <div className="container mx-auto max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-serif mb-2 text-foreground">Welcome</h1>
+            <h1 className="text-3xl font-serif mb-2 text-foreground">Admin Access</h1>
             <p className="text-muted-foreground">
-              Sign in to access packages and contact forms, or create an account to get started
+              Login to manage website content, photos, videos, and client submissions
             </p>
           </div>
 

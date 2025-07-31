@@ -23,10 +23,10 @@ const stats = [
 
 const teamMembers = [
   {
-    name: 'Anil Kumar',
+    name: 'Yeshwanth Reddy',
     position: 'Founder & Lead Photographer',
     image: 'https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F914c1b82cf3645caa7fade56db47a9f8?format=webp&width=800',
-    description: 'With over a decade of experience, Anil founded Satya Photography with a vision to create timeless memories that capture the essence of every special moment.'
+    description: 'With over a decade of experience in photography, our founder has built Satya Photography with a vision to create timeless memories that capture the essence of every special moment.'
   },
   {
     name: 'Raj Karthikeya',
@@ -51,7 +51,7 @@ export default function About() {
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8">
                 Welcome to Satya Photography, where every frame tells a story and every moment becomes a treasured memory.
-                Founded by passionate photographer Anil Kumar, we specialize in capturing life's most precious moments with
+                Founded by passionate photographer Yeshwanth Reddy, we specialize in capturing life's most precious moments with
                 artistic excellence and professional dedication. From intimate ceremonies to grand celebrations, we bring
                 creativity, expertise, and heart to every shoot, ensuring your special day is preserved beautifully forever.
               </p>
@@ -96,7 +96,7 @@ export default function About() {
               <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray rounded-lg overflow-hidden">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F914c1b82cf3645caa7fade56db47a9f8?format=webp&width=800"
-                  alt="Anil Kumar - Founder of Satya Photography"
+                  alt="Yeshwanth Reddy - Founder of Satya Photography"
                   className="w-full h-full object-cover"
                 />
               </div>

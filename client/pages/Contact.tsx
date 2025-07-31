@@ -11,18 +11,16 @@ import { Mail, Phone, MapPin, CalendarIcon, Send, Instagram, Facebook } from 'lu
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import Navigation from '@/components/Navigation';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import { useAuth } from '@/contexts/AuthContext';
+// Login removed for public access
 import { supabase } from '@/lib/supabase';
 import type { ContactFormData, ServiceType } from '@shared/types';
 import { SERVICE_TYPES } from '@shared/types';
 
 export default function Contact() {
-  const { appUser } = useAuth();
   const [formData, setFormData] = useState<ContactFormData>({
-    name: appUser?.name || '',
-    email: appUser?.email || '',
-    phone: appUser?.phone || '',
+    name: '',
+    email: '',
+    phone: '',
     event_type: 'wedding',
     event_date: '',
     message: ''
@@ -81,9 +79,9 @@ export default function Contact() {
       } else {
         setSubmitStatus('success');
         setFormData({
-          name: appUser?.name || '',
-          email: appUser?.email || '',
-          phone: appUser?.phone || '',
+          name: '',
+          email: '',
+          phone: '',
           event_type: 'wedding',
           event_date: '',
           message: ''
@@ -99,8 +97,7 @@ export default function Contact() {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
         <Navigation />
 
         <div className="pt-24 pb-12 px-6">
@@ -355,6 +352,5 @@ export default function Contact() {
           </div>
         </div>
       </div>
-    </ProtectedRoute>
-  );
+    );
 }

@@ -5,14 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Check, Star, Camera, Heart, ArrowRight } from 'lucide-react';
 import Navigation from '@/components/Navigation';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import { useAuth } from '@/contexts/AuthContext';
+// Login removed for public access
 import { supabase } from '@/lib/supabase';
 import type { Package, ServiceType } from '@shared/types';
 import { SERVICE_TYPES } from '@shared/types';
 
 export default function Packages() {
-  const { appUser } = useAuth();
   const [packages, setPackages] = useState<Package[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<ServiceType | 'all'>('all');
 
@@ -142,8 +140,7 @@ export default function Packages() {
   };
 
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
         <Navigation />
 
         <div className="pt-24 pb-12 px-6">
@@ -156,7 +153,7 @@ export default function Packages() {
               </p>
               <div className="mt-6 p-4 bg-gold-400/10 border border-gold-400/20 rounded-lg inline-block">
                 <p className="text-gold-400 font-medium">
-                  ✨ Welcome, {appUser?.name}! These exclusive packages are available to our registered users.
+                  ✨ Explore our exclusive photography packages designed for your special moments.
                 </p>
               </div>
             </div>
@@ -318,6 +315,5 @@ export default function Packages() {
           </div>
         </div>
       </div>
-    </ProtectedRoute>
-  );
+    );
 }
