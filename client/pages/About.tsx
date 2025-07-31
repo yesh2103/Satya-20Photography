@@ -30,9 +30,9 @@ const teamMembers = [
   },
   {
     name: 'Raj Karthikeya',
-    position: 'Studio Manager & Assistant Photographer',
-    image: 'https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F26b40152b13e48bd972f962f590996b9?format=webp&width=800',
-    description: 'Ensuring seamless operations and exceptional client experiences across all our photography sessions while assisting in capturing perfect moments.'
+    position: 'CEO',
+    image: 'https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F914c1b82cf3645caa7fade56db47a9f8?format=webp&width=800',
+    description: 'Leading Satya Photography with strategic vision and ensuring exceptional client experiences across all our photography services.'
   }
 ];
 
@@ -97,7 +97,7 @@ export default function About() {
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F26b40152b13e48bd972f962f590996b9?format=webp&width=800"
                   alt="Anil Kumar - Founder of Satya Photography"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
             </div>
@@ -142,13 +142,13 @@ export default function About() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {teamMembers.map((member, index) => (
                 <Card key={index} className="border-luxury-medium-gray bg-card hover:border-gold-400 transition-all duration-300 overflow-hidden">
-                  <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray flex items-center justify-center">
+                  <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray flex items-center justify-center relative">
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
-                    <div className="absolute inset-0 bg-black/20"></div>
+                    <div className="absolute inset-0 bg-black/10"></div>
                   </div>
                   <CardContent className="p-6 text-center">
                     <h3 className="text-xl font-serif font-bold text-foreground mb-2">{member.name}</h3>
