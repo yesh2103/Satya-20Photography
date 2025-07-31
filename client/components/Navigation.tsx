@@ -41,7 +41,7 @@ export default function Navigation() {
             <Link to="/packages" className={getLinkClass('/packages')}>Packages</Link>
             <Link to="/contact" className={getLinkClass('/contact')}>Contact</Link>
             
-            {user ? (
+            {user && isOwner ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
@@ -56,36 +56,26 @@ export default function Navigation() {
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none text-foreground">
-                        {appUser?.name || 'User'}
+                        {appUser?.name || 'Admin'}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {user.email}
                       </p>
-                      {isOwner && (
-                        <div className="flex items-center gap-1 text-xs text-gold-400">
-                          <Crown className="h-3 w-3" />
-                          Owner
-                        </div>
-                      )}
+                      <div className="flex items-center gap-1 text-xs text-gold-400">
+                        <Crown className="h-3 w-3" />
+                        Owner
+                      </div>
                     </div>
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link to="/profile" className="cursor-pointer">
-                      <User className="mr-2 h-4 w-4" />
-                      Profile
+                    <Link to="/admin" className="cursor-pointer">
+                      <Settings className="mr-2 h-4 w-4" />
+                      Admin Dashboard
                     </Link>
                   </DropdownMenuItem>
-                  {isOwner && (
-                    <DropdownMenuItem asChild>
-                      <Link to="/admin" className="cursor-pointer">
-                        <Settings className="mr-2 h-4 w-4" />
-                        Admin Dashboard
-                      </Link>
-                    </DropdownMenuItem>
-                  )}
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={handleSignOut}
                     className="cursor-pointer text-red-400 focus:text-red-400"
                   >
@@ -97,7 +87,7 @@ export default function Navigation() {
             ) : (
               <Link to="/login">
                 <Button variant="outline" className="border-gold-400 text-gold-400 hover:bg-gold-400 hover:text-luxury-black">
-                  Login
+                  Admin Login
                 </Button>
               </Link>
             )}
