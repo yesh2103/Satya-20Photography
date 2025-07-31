@@ -31,7 +31,7 @@ const teamMembers = [
   {
     name: 'Raj Karthikeya',
     position: 'Studio Manager & Assistant Photographer',
-    image: 'https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F914c1b82cf3645caa7fade56db47a9f8?format=webp&width=800',
+    image: 'https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F26b40152b13e48bd972f962f590996b9?format=webp&width=800',
     description: 'Ensuring seamless operations and exceptional client experiences across all our photography sessions while assisting in capturing perfect moments.'
   }
 ];
