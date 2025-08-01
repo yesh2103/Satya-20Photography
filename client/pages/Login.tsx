@@ -216,6 +216,14 @@ export default function Login() {
                 </div>
               )}
 
+              {/* Success Message */}
+              {successMessage && (
+                <div className="mb-4 p-3 bg-green-900/20 border border-green-800 rounded-lg">
+                  <p className="text-green-400 text-sm font-medium">✅ Success!</p>
+                  <p className="text-green-300 text-sm mt-1">{successMessage}</p>
+                </div>
+              )}
+
               {/* Loading Status */}
               {isLoading && (
                 <div className="mb-4 p-3 bg-blue-900/20 border border-blue-800 rounded-lg">
