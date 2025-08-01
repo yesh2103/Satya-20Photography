@@ -36,8 +36,6 @@ export default function Login() {
 
     if (!formData.email) {
       newErrors.email = 'Email is required';
-    } else if (formData.email.toLowerCase() !== 'rajkarthikeya10@gmail.com') {
-      newErrors.email = 'Only admin access is permitted';
     }
 
     if (!formData.password) {
