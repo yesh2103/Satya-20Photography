@@ -4,9 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Camera, Mail, Lock, User, Phone, Chrome, Eye, EyeOff } from 'lucide-react';
+import { Camera, Mail, Lock, Eye, EyeOff, Shield } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 
@@ -15,18 +13,15 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    name: '',
-    phone: '',
-    confirmPassword: ''
+    password: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   
-  const { signIn, signUp, signInWithGoogle } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || '/admin';
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -36,35 +31,17 @@ export default function Login() {
     }
   };
 
-  const validateForm = (isSignUp: boolean) => {
+  const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.email) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+    } else if (formData.email !== 'rajkarthikeya10@gmail.com') {
+      newErrors.email = 'Only admin access is permitted';
     }
 
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-
-    if (isSignUp) {
-      if (!formData.name) {
-        newErrors.name = 'Name is required';
-      }
-
-      if (!formData.confirmPassword) {
-        newErrors.confirmPassword = 'Please confirm your password';
-      } else if (formData.password !== formData.confirmPassword) {
-        newErrors.confirmPassword = 'Passwords do not match';
-      }
-
-      if (formData.phone && !/^\+?[\d\s-()]+$/.test(formData.phone)) {
-        newErrors.phone = 'Invalid phone number';
-      }
     }
 
     setErrors(newErrors);
@@ -74,7 +51,7 @@ export default function Login() {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validateForm(false)) return;
+    if (!validateForm()) return;
 
     setIsLoading(true);
     
@@ -82,52 +59,17 @@ export default function Login() {
       const { error } = await signIn(formData.email, formData.password);
       
       if (error) {
-        setErrors({ general: error.message });
+        if (error.message.includes('Email not confirmed')) {
+          setErrors({ 
+            general: 'Your email needs to be confirmed. Please check the instructions below to confirm your email.' 
+          });
+        } else if (error.message.includes('Invalid login credentials')) {
+          setErrors({ general: 'Invalid email or password. Please check your credentials.' });
+        } else {
+          setErrors({ general: error.message });
+        }
       } else {
         navigate(from, { replace: true });
-      }
-    } catch (error) {
-      setErrors({ general: 'An unexpected error occurred' });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm(true)) return;
-
-    setIsLoading(true);
-    
-    try {
-      const { error } = await signUp(formData.email, formData.password, {
-        name: formData.name,
-        phone: formData.phone
-      });
-      
-      if (error) {
-        setErrors({ general: error.message });
-      } else {
-        setErrors({ general: '' });
-        // Show success message or redirect
-        navigate('/login?tab=signin&message=Please check your email to verify your account');
-      }
-    } catch (error) {
-      setErrors({ general: 'An unexpected error occurred' });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    
-    try {
-      const { error } = await signInWithGoogle();
-      
-      if (error) {
-        setErrors({ general: error.message });
       }
     } catch (error) {
       setErrors({ general: 'An unexpected error occurred' });
@@ -160,238 +102,100 @@ export default function Login() {
       <div className="py-12 px-6">
         <div className="container mx-auto max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-serif mb-2 text-foreground">Admin Access</h1>
+            <div className="flex items-center justify-center mb-4">
+              <Shield className="h-12 w-12 text-gold-400" />
+            </div>
+            <h1 className="text-3xl font-serif mb-2 text-foreground">Admin Access Only</h1>
             <p className="text-muted-foreground">
-              Login to manage website content, photos, videos, and client submissions
+              Restricted access for website administration
             </p>
           </div>
 
           <Card className="border-luxury-medium-gray bg-card">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl font-serif text-foreground">Account Access</CardTitle>
+              <CardTitle className="text-2xl font-serif text-foreground">Administrator Login</CardTitle>
               <CardDescription className="text-muted-foreground">
-                Choose your preferred sign-in method
+                Enter your admin credentials to access the dashboard
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="signin" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-6">
-                  <TabsTrigger value="signin">Sign In</TabsTrigger>
-                  <TabsTrigger value="signup">Sign Up</TabsTrigger>
-                </TabsList>
+              {/* General Error Message */}
+              {errors.general && (
+                <div className="mb-4 p-3 bg-red-900/20 border border-red-800 rounded-lg">
+                  <p className="text-red-400 text-sm">{errors.general}</p>
+                </div>
+              )}
 
-                {/* Google Sign In Button */}
-                <div className="mb-6">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full border-luxury-medium-gray text-foreground hover:bg-gold-400 hover:text-luxury-black"
-                    onClick={handleGoogleSignIn}
-                    disabled={isLoading}
-                  >
-                    <Chrome className="mr-2 h-4 w-4" />
-                    Continue with Google
-                  </Button>
+              <form onSubmit={handleSignIn} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="admin-email" className="text-foreground">Admin Email</Label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="admin-email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      placeholder="rajkarthikeya10@gmail.com"
+                      className={cn(
+                        "pl-10 bg-input border-luxury-medium-gray text-foreground",
+                        errors.email && "border-red-500"
+                      )}
+                      required
+                    />
+                  </div>
+                  {errors.email && <p className="text-red-400 text-sm">{errors.email}</p>}
                 </div>
 
-                <div className="relative mb-6">
-                  <div className="absolute inset-0 flex items-center">
-                    <Separator className="w-full" />
+                <div className="space-y-2">
+                  <Label htmlFor="admin-password" className="text-foreground">Admin Password</Label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="admin-password"
+                      type={showPassword ? "text" : "password"}
+                      value={formData.password}
+                      onChange={(e) => handleInputChange('password', e.target.value)}
+                      placeholder="Enter admin password"
+                      className={cn(
+                        "pl-10 pr-10 bg-input border-luxury-medium-gray text-foreground",
+                        errors.password && "border-red-500"
+                      )}
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
                   </div>
-                  <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-card px-2 text-muted-foreground">Or continue with email</span>
-                  </div>
+                  {errors.password && <p className="text-red-400 text-sm">{errors.password}</p>}
                 </div>
 
-                {/* General Error Message */}
-                {errors.general && (
-                  <div className="mb-4 p-3 bg-red-900/20 border border-red-800 rounded-lg">
-                    <p className="text-red-400 text-sm">{errors.general}</p>
-                  </div>
-                )}
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-gold-400 text-luxury-black hover:bg-gold-500"
+                >
+                  {isLoading ? 'Signing in...' : 'Sign In as Admin'}
+                </Button>
+              </form>
 
-                <TabsContent value="signin" className="space-y-4">
-                  <form onSubmit={handleSignIn} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signin-email" className="text-foreground">Email</Label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="signin-email"
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
-                          placeholder="Enter your email"
-                          className={cn(
-                            "pl-10 bg-input border-luxury-medium-gray text-foreground",
-                            errors.email && "border-red-500"
-                          )}
-                          required
-                        />
-                      </div>
-                      {errors.email && <p className="text-red-400 text-sm">{errors.email}</p>}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="signin-password" className="text-foreground">Password</Label>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="signin-password"
-                          type={showPassword ? "text" : "password"}
-                          value={formData.password}
-                          onChange={(e) => handleInputChange('password', e.target.value)}
-                          placeholder="Enter your password"
-                          className={cn(
-                            "pl-10 pr-10 bg-input border-luxury-medium-gray text-foreground",
-                            errors.password && "border-red-500"
-                          )}
-                          required
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                        >
-                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </button>
-                      </div>
-                      {errors.password && <p className="text-red-400 text-sm">{errors.password}</p>}
-                    </div>
-
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full bg-gold-400 text-luxury-black hover:bg-gold-500"
-                    >
-                      {isLoading ? 'Signing in...' : 'Sign In'}
-                    </Button>
-                  </form>
-                </TabsContent>
-
-                <TabsContent value="signup" className="space-y-4">
-                  <form onSubmit={handleSignUp} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-name" className="text-foreground">Full Name *</Label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="signup-name"
-                          type="text"
-                          value={formData.name}
-                          onChange={(e) => handleInputChange('name', e.target.value)}
-                          placeholder="Enter your full name"
-                          className={cn(
-                            "pl-10 bg-input border-luxury-medium-gray text-foreground",
-                            errors.name && "border-red-500"
-                          )}
-                          required
-                        />
-                      </div>
-                      {errors.name && <p className="text-red-400 text-sm">{errors.name}</p>}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-email" className="text-foreground">Email *</Label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="signup-email"
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
-                          placeholder="Enter your email"
-                          className={cn(
-                            "pl-10 bg-input border-luxury-medium-gray text-foreground",
-                            errors.email && "border-red-500"
-                          )}
-                          required
-                        />
-                      </div>
-                      {errors.email && <p className="text-red-400 text-sm">{errors.email}</p>}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-phone" className="text-foreground">Phone Number</Label>
-                      <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="signup-phone"
-                          type="tel"
-                          value={formData.phone}
-                          onChange={(e) => handleInputChange('phone', e.target.value)}
-                          placeholder="Enter your phone number (optional)"
-                          className={cn(
-                            "pl-10 bg-input border-luxury-medium-gray text-foreground",
-                            errors.phone && "border-red-500"
-                          )}
-                        />
-                      </div>
-                      {errors.phone && <p className="text-red-400 text-sm">{errors.phone}</p>}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-password" className="text-foreground">Password *</Label>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="signup-password"
-                          type={showPassword ? "text" : "password"}
-                          value={formData.password}
-                          onChange={(e) => handleInputChange('password', e.target.value)}
-                          placeholder="Create a password"
-                          className={cn(
-                            "pl-10 pr-10 bg-input border-luxury-medium-gray text-foreground",
-                            errors.password && "border-red-500"
-                          )}
-                          required
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                        >
-                          {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                        </button>
-                      </div>
-                      {errors.password && <p className="text-red-400 text-sm">{errors.password}</p>}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-confirm-password" className="text-foreground">Confirm Password *</Label>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          id="signup-confirm-password"
-                          type="password"
-                          value={formData.confirmPassword}
-                          onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                          placeholder="Confirm your password"
-                          className={cn(
-                            "pl-10 bg-input border-luxury-medium-gray text-foreground",
-                            errors.confirmPassword && "border-red-500"
-                          )}
-                          required
-                        />
-                      </div>
-                      {errors.confirmPassword && <p className="text-red-400 text-sm">{errors.confirmPassword}</p>}
-                    </div>
-
-                    <Button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full bg-gold-400 text-luxury-black hover:bg-gold-500"
-                    >
-                      {isLoading ? 'Creating account...' : 'Create Account'}
-                    </Button>
-                  </form>
-                </TabsContent>
-              </Tabs>
-
-              <div className="mt-6 text-center">
-                <p className="text-sm text-muted-foreground">
-                  By signing up, you agree to our terms of service and privacy policy.
+              {/* Email Confirmation Instructions */}
+              <div className="mt-6 p-4 bg-yellow-900/20 border border-yellow-800 rounded-lg">
+                <h3 className="text-yellow-400 font-semibold mb-2">Email Not Confirmed?</h3>
+                <p className="text-yellow-300 text-sm mb-2">
+                  If you see an "Email not confirmed" error, follow these steps:
                 </p>
+                <ol className="text-yellow-300 text-sm list-decimal list-inside space-y-1">
+                  <li>Go to your Supabase dashboard</li>
+                  <li>Navigate to Authentication → Users</li>
+                  <li>Find the user: rajkarthikeya10@gmail.com</li>
+                  <li>Click the three dots and select "Confirm User"</li>
+                  <li>Try logging in again</li>
+                </ol>
               </div>
             </CardContent>
           </Card>
