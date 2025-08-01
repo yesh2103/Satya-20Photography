@@ -198,63 +198,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     console.log('✅ Email validation passed, attempting Supabase auth...');
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      console.log('🔄 About to call supabase.auth.signInWithPassword...');
+
+      const authResult = await supabase.auth.signInWithPassword({
         email,
         password
       });
 
-      if (error) {
-        console.error('❌ Supabase auth error:', JSON.stringify(error, null, 2));
-        return { error };
+      console.log('🔄 supabase.auth.signInWithPassword completed');
+      console.log('🔄 Auth result:', {
+        hasError: !!authResult.error,
+        hasUser: !!authResult.data?.user,
+        errorMessage: authResult.error?.message
+      });
+
+      if (authResult.error) {
+        console.error('❌ Supabase auth error:', JSON.stringify(authResult.error, null, 2));
+        return { error: authResult.error };
       }
 
-      console.log('✅ Supabase auth successful');
-
-      // If login successful but user doesn't exist in our users table, create it
-      try {
-        console.log('🔄 Checking/creating user profile...');
-        const { data: { user } } = await supabase.auth.getUser();
-
-        if (user && user.email?.toLowerCase() === 'rajkarthikeya10@gmail.com') {
-          // Ensure user exists in our users table
-          const { data: existingUser, error: fetchError } = await supabase
-            .from('users')
-            .select('*')
-            .eq('id', user.id)
-            .single();
-
-          if (fetchError && fetchError.code === 'PGRST116') {
-            // User doesn't exist, create it
-            console.log('🔄 Creating user profile for logged in admin...');
-            const { error: insertError } = await supabase
-              .from('users')
-              .insert({
-                id: user.id,
-                name: 'Satya Photography Admin',
-                email: user.email,
-                role: 'owner'
-              });
-
-            if (insertError) {
-              console.error('❌ Error creating user profile:', JSON.stringify(insertError, null, 2));
-            } else {
-              console.log('✅ User profile created successfully');
-            }
-          } else if (!fetchError) {
-            console.log('✅ User profile already exists');
-          }
-        }
-      } catch (profileError) {
-        console.error('❌ Error in profile creation process:', profileError);
-        // Don't fail the login for profile creation errors
-      }
-
+      console.log('✅ Supabase auth successful - user authenticated');
       console.log('✅ SignIn process completed successfully');
       return { error: null };
 
     } catch (authError) {
-      console.error('❌ Unexpected error in signIn:', authError);
-      return { error: { message: 'Authentication failed. Please try again.' } as AuthError };
+      console.error('❌ Exception in signIn function:', authError);
+      return { error: { message: `Authentication failed: ${authError instanceof Error ? authError.message : 'Unknown error'}` } as AuthError };
     }
   };
 
