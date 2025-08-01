@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Luxury Services Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.luxury-service-container {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Smooth hover transitions for luxury elements */
+.luxury-service-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.4);
+  border-color: gold;
+}
+
+.luxury-service-container:hover img {
+  transform: scale(1.1);
+}
+
+/* Import Cinzel font for luxury typography */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
+
 @layer base {
   /**
    * Tailwind CSS theme
