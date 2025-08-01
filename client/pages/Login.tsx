@@ -60,8 +60,19 @@ export default function Login() {
     console.log('🔄 Starting login process for:', formData.email);
 
     try {
-      // Validate admin credentials
-      if (formData.email.toLowerCase() === 'rajkarthikeya10@gmail.com' && formData.password === 'SatyaANil@0804') {
+      // Validate admin credentials - check both possible password cases
+      const validEmail = formData.email.toLowerCase() === 'rajkarthikeya10@gmail.com';
+      const validPassword = formData.password === 'SatyaANil@0804' || formData.password === 'SatyaAnil@0804';
+
+      console.log('Login validation:', {
+        email: formData.email,
+        emailLower: formData.email.toLowerCase(),
+        password: formData.password,
+        validEmail,
+        validPassword
+      });
+
+      if (validEmail && validPassword) {
         // Valid credentials - create admin session
         const { directAuth } = await import('@/utils/directAuth');
         const adminUser = directAuth.createAdminSession();
