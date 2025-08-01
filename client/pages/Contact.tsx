@@ -347,6 +347,30 @@ export default function Contact() {
                     </div>
                   </CardContent>
                 </Card>
+
+                {/* Location Map */}
+                <Card className="border-luxury-medium-gray bg-card">
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-serif text-foreground">Visit Our Studio</CardTitle>
+                    <p className="text-muted-foreground">
+                      Find us at our studio location in Hanamkonda, Warangal. We're conveniently located and easily accessible.
+                    </p>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <div className="relative">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d518.6541116889288!2d79.56279035661154!3d18.0113160835907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a334587ab12834d%3A0xc33ee7f4dec97599!2sUsha%20Residency%2C%20Kishanpura%2C%20Hanamkonda%2C%20Telangana%20506001!5e1!3m2!1sen!2sin!4v1749989209903!5m2!1sen!2sin"
+                        width="100%"
+                        height="450"
+                        style={{ border: 0 }}
+                        allowFullScreen=""
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="w-full rounded-b-lg"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
