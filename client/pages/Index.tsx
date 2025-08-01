@@ -25,6 +25,18 @@ const categories = [
   "Engagement",
 ];
 
+const getServiceImage = (index: number) => {
+  const serviceImages = [
+    'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=800&q=80', // Wedding
+    'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80', // Pre-wedding
+    'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80', // Newborn
+    'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=800&q=80', // Birthdays
+    'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80', // Retirement
+    'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80', // Events
+  ];
+  return serviceImages[index] || serviceImages[0];
+};
+
 const testimonials = [
   {
     name: "Priya & Arjun",
@@ -136,10 +148,10 @@ export default function Index() {
       </section>
 
       {/* Services Preview */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6" style={{ backgroundColor: '#0d0d0d', fontFamily: 'Cinzel, serif' }}>
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif mb-4 text-foreground">
+            <h2 className="text-4xl md:text-5xl font-serif mb-4" style={{ color: 'gold', textShadow: '0 0 15px rgba(255, 215, 0, 0.3)', fontSize: '40px' }}>
               Our Services
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -148,28 +160,74 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-5">
             {categories.slice(0, 6).map((category, index) => (
-              <Card
+              <div
                 key={category}
-                className="group cursor-pointer border-luxury-medium-gray bg-card hover:border-gold-400 transition-all duration-300"
+                className="luxury-service-container"
+                style={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  width: '280px',
+                  height: '400px',
+                  border: '2px solid rgba(255, 215, 0, 0.3)',
+                  borderRadius: '15px',
+                  boxShadow: '0 0 20px rgba(255, 215, 0, 0.1)',
+                  transition: 'transform 0.4s ease, box-shadow 0.4s ease',
+                  animation: 'fadeIn 0.8s ease forwards',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 0 35px rgba(255, 215, 0, 0.4)';
+                  e.currentTarget.style.borderColor = 'gold';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 215, 0, 0.3)';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1)';
+                }}
               >
-                <CardContent className="p-6">
-                  <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray rounded-lg mb-4 flex items-center justify-center">
-                    <Heart className="h-12 w-12 text-gold-400 group-hover:scale-110 transition-transform" />
-                  </div>
-                  <h3 className="text-xl font-serif mb-2 text-foreground">
+                <img
+                  src={getServiceImage(index)}
+                  alt={category}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    transition: 'transform 0.4s ease-in-out'
+                  }}
+                />
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  background: 'linear-gradient(transparent, rgba(0,0,0,0.9))',
+                  padding: '20px',
+                  color: 'white'
+                }}>
+                  <h3 style={{ color: 'gold', fontSize: '18px', marginBottom: '8px', fontFamily: 'Cinzel, serif' }}>
                     {category}
                   </h3>
-                  <p className="text-muted-foreground">
-                    Professional {category.toLowerCase()} photography with
-                    artistic flair
+                  <p style={{ fontSize: '14px', opacity: 0.9 }}>
+                    Professional {category.toLowerCase()} photography with artistic flair
                   </p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>
+        <style jsx>{`
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}</style>
       </section>
 
       {/* About Preview */}
