@@ -207,6 +207,8 @@ export default function Login() {
                       console.log('- Loading state:', isLoading);
                       console.log('- Errors:', errors);
                       console.log('- From path:', from);
+                      console.log('- Supabase URL:', import.meta.env.VITE_SUPABASE_URL ? 'Set' : 'Missing');
+                      console.log('- Supabase Key:', import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Set' : 'Missing');
 
                       // Test Supabase connection
                       try {
