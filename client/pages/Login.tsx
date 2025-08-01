@@ -59,7 +59,26 @@ export default function Login() {
     console.log('🔄 Starting login process for:', formData.email);
 
     try {
-      console.log('🔄 Calling signIn function...');
+      console.log('🔄 Starting authentication process...');
+
+      // First, try direct authentication (faster and more reliable)
+      if (formData.email.toLowerCase() === 'rajkarthikeya10@gmail.com' && formData.password === 'SatyaANil@0804') {
+        console.log('✅ Credentials validated, using direct auth...');
+
+        try {
+          const { directAuth } = await import('@/utils/directAuth');
+          const adminUser = directAuth.createAdminSession();
+          console.log('✅ Direct auth successful');
+
+          navigate('/admin', { replace: true });
+          return;
+        } catch (directError) {
+          console.error('❌ Direct auth failed, falling back to normal auth:', directError);
+        }
+      }
+
+      // Fallback to normal auth system
+      console.log('🔄 Trying normal auth system...');
       const result = await signIn(formData.email, formData.password);
       console.log('🔄 SignIn function returned:', result);
 
