@@ -18,6 +18,7 @@ export default function Login() {
     password: ''
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [successMessage, setSuccessMessage] = useState<string>('');
   
   const { signIn } = useAuth();
   const navigate = useNavigate();
