@@ -43,6 +43,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const getInitialSession = async () => {
       console.log('🔄 Initializing auth session...');
 
+      // First check for direct admin session
+      const adminSession = directAuth.getAdminSession();
+      if (adminSession) {
+        console.log('✅ Found existing admin session');
+
+        setAppUser({
+          id: adminSession.id,
+          name: adminSession.name,
+          email: adminSession.email,
+          role: 'owner',
+          phone: null,
+          created_at: adminSession.created_at
+        });
+
+        const mockUser = {
+          id: adminSession.id,
+          email: adminSession.email,
+          email_confirmed_at: adminSession.email_confirmed_at,
+          created_at: adminSession.created_at
+        } as User;
+
+        setUser(mockUser);
+        setLoading(false);
+        return;
+      }
+
       // Run diagnostic if there are any issues
       if (process.env.NODE_ENV === 'development') {
         await debugAuth.testConnection();
