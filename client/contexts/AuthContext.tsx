@@ -272,8 +272,22 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    return { error };
+    // Clear admin session
+    directAuth.clearAdminSession();
+
+    // Clear states
+    setUser(null);
+    setAppUser(null);
+    setSession(null);
+
+    // Also try to clear Supabase session (non-blocking)
+    try {
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.log('Supabase signOut failed, but continuing...');
+    }
+
+    return { error: null };
   };
 
   const updateProfile = async (updates: Partial<AppUser>) => {
