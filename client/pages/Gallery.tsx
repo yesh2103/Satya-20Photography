@@ -299,18 +299,30 @@ export default function Gallery() {
       {/* Lightbox Modal */}
       {selectedMedia && (
         <div
-          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4"
+          style={{ fontFamily: 'Cinzel, serif' }}
           onClick={closeLightbox}
         >
           <div className="relative max-w-4xl max-h-full">
             <button
               onClick={closeLightbox}
-              className="absolute -top-12 right-0 text-white hover:text-gold-400 text-2xl font-bold"
+              className="absolute -top-12 right-0 text-white text-2xl font-bold transition-all duration-300 p-2 rounded-full"
+              style={{
+                background: 'rgba(255, 215, 0, 0.2)',
+                border: '1px solid rgba(255, 215, 0, 0.3)',
+                boxShadow: '0 0 15px rgba(255, 215, 0, 0.2)'
+              }}
             >
               ✕
             </button>
 
-            <div className="bg-card border border-luxury-medium-gray rounded-lg overflow-hidden">
+            <div style={{
+              border: '2px solid rgba(255, 215, 0, 0.3)',
+              borderRadius: '15px',
+              boxShadow: '0 0 30px rgba(255, 215, 0, 0.2)',
+              background: 'rgba(13, 13, 13, 0.9)',
+              overflow: 'hidden'
+            }}>
               <div className="aspect-video bg-luxury-dark-gray flex items-center justify-center">
                 {selectedMedia.type === "video" ? (
                   <div className="text-center">
