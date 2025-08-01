@@ -113,13 +113,17 @@ export default function Gallery() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ backgroundColor: '#0d0d0d', fontFamily: 'Cinzel, serif' }}>
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b border-luxury-medium-gray">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Camera className="h-8 w-8 text-gold-400" />
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F2627d12ed9764db4b3d41d0ffb56fd4a?format=webp&width=800"
+                alt="Satya Photography Logo"
+                className="h-8 w-8 object-contain"
+              />
               <h1 className="text-2xl font-serif font-bold text-foreground">
                 Satya Photography
               </h1>
@@ -169,7 +173,7 @@ export default function Gallery() {
         <div className="container mx-auto">
           {/* Page Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-serif mb-4 text-foreground">
+            <h1 className="text-4xl md:text-5xl font-serif mb-4" style={{ color: 'gold', textShadow: '0 0 15px rgba(255, 215, 0, 0.3)', fontSize: '40px' }}>
               Our Gallery
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
