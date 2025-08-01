@@ -30,7 +30,11 @@ export default function Navigation() {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-3">
-            <Camera className="h-8 w-8 text-gold-400" />
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F2627d12ed9764db4b3d41d0ffb56fd4a?format=webp&width=800"
+              alt="Satya Photography Logo"
+              className="h-10 w-10 object-contain"
+            />
             <h1 className="text-2xl font-serif font-bold text-foreground">Satya Photography</h1>
           </Link>
           
