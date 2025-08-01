@@ -62,16 +62,22 @@ export default function Login() {
       console.log('🔄 SignIn function returned:', result);
 
       if (result.error) {
-        console.error('❌ Login error:', result.error);
+        console.error('❌ Login error details:', {
+          message: result.error.message,
+          error: result.error,
+          stringified: JSON.stringify(result.error, null, 2)
+        });
 
-        if (result.error.message.includes('Email not confirmed')) {
+        const errorMessage = result.error.message || 'Authentication failed';
+
+        if (errorMessage.includes('Email not confirmed')) {
           setErrors({
             general: 'Your email needs to be confirmed. Please check the instructions below to confirm your email.'
           });
-        } else if (result.error.message.includes('Invalid login credentials')) {
+        } else if (errorMessage.includes('Invalid login credentials') || errorMessage.includes('Invalid email or password')) {
           setErrors({ general: 'Invalid email or password. Please check your credentials.' });
         } else {
-          setErrors({ general: result.error.message });
+          setErrors({ general: errorMessage });
         }
       } else {
         console.log('✅ Login successful, navigating to:', from);
