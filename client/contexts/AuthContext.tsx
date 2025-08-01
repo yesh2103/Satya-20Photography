@@ -196,36 +196,43 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return { error: { message: 'Only admin access is permitted' } as AuthError };
     }
 
-    console.log('✅ Email validation passed, attempting Supabase auth...');
+    console.log('✅ Email validation passed, attempting authentication...');
 
-    try {
-      console.log('🔄 About to call supabase.auth.signInWithPassword...');
+    // First try direct credential validation
+    if (directAuth.validateCredentials(email, password)) {
+      console.log('✅ Direct credential validation successful');
 
-      const authResult = await supabase.auth.signInWithPassword({
-        email,
-        password
+      // Create admin session
+      const adminUser = directAuth.createAdminSession();
+      console.log('✅ Admin session created');
+
+      // Set the app user state
+      setAppUser({
+        id: adminUser.id,
+        name: adminUser.name,
+        email: adminUser.email,
+        role: 'owner',
+        phone: null,
+        created_at: adminUser.created_at
       });
 
-      console.log('🔄 supabase.auth.signInWithPassword completed');
-      console.log('🔄 Auth result:', {
-        hasError: !!authResult.error,
-        hasUser: !!authResult.data?.user,
-        errorMessage: authResult.error?.message
-      });
+      // Create a mock user for the user state
+      const mockUser = {
+        id: adminUser.id,
+        email: adminUser.email,
+        email_confirmed_at: adminUser.email_confirmed_at,
+        created_at: adminUser.created_at
+      } as User;
 
-      if (authResult.error) {
-        console.error('❌ Supabase auth error:', JSON.stringify(authResult.error, null, 2));
-        return { error: authResult.error };
-      }
+      setUser(mockUser);
+      setLoading(false);
 
-      console.log('✅ Supabase auth successful - user authenticated');
-      console.log('✅ SignIn process completed successfully');
+      console.log('✅ Direct auth completed successfully');
       return { error: null };
-
-    } catch (authError) {
-      console.error('❌ Exception in signIn function:', authError);
-      return { error: { message: `Authentication failed: ${authError instanceof Error ? authError.message : 'Unknown error'}` } as AuthError };
     }
+
+    console.log('❌ Direct credential validation failed');
+    return { error: { message: 'Invalid email or password' } as AuthError };
   };
 
   const signInWithGoogle = async () => {
