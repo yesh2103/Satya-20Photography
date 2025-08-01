@@ -104,7 +104,15 @@ export default function Contact() {
           <div className="container mx-auto max-w-6xl">
             {/* Page Header */}
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-serif mb-4 text-foreground">Get In Touch</h1>
+              <h1 className="text-4xl md:text-5xl font-serif mb-4 bg-gradient-to-r from-gold-400 via-yellow-300 to-gold-500 bg-clip-text text-transparent"
+                style={{
+                  fontFamily: 'Cinzel, serif',
+                  letterSpacing: '0.05em',
+                  textShadow: '0 0 20px rgba(255, 215, 0, 0.4)',
+                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                }}>
+              GET IN TOUCH
+            </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 Ready to capture your special moments? Fill out the form below and we'll get back to you within 24 hours.
               </p>

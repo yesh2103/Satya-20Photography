@@ -147,7 +147,15 @@ export default function Packages() {
           <div className="container mx-auto">
             {/* Header */}
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-serif mb-4 text-foreground">Our Packages</h1>
+              <h1 className="text-4xl md:text-5xl font-serif mb-4 bg-gradient-to-r from-gold-400 via-yellow-300 to-gold-500 bg-clip-text text-transparent"
+                  style={{
+                    fontFamily: 'Cinzel, serif',
+                    letterSpacing: '0.05em',
+                    textShadow: '0 0 20px rgba(255, 215, 0, 0.4)',
+                    filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                  }}>
+                OUR PACKAGES
+              </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 Professional photography packages designed to capture your special moments with artistic excellence
               </p>
