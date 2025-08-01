@@ -75,7 +75,10 @@ export default function Login() {
         }
       } else {
         console.log('✅ Login successful, navigating to:', from);
-        navigate(from, { replace: true });
+        // Small delay to ensure state is updated
+        setTimeout(() => {
+          navigate(from, { replace: true });
+        }, 100);
       }
     } catch (error) {
       console.error('❌ Unexpected login error:', error);
