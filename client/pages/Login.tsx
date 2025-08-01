@@ -195,24 +195,62 @@ export default function Login() {
 
               {/* Debug button for development */}
               {process.env.NODE_ENV === 'development' && (
-                <div className="mt-4">
+                <div className="mt-4 space-y-2">
                   <Button
                     type="button"
                     variant="outline"
                     size="sm"
                     className="w-full border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white"
-                    onClick={() => {
+                    onClick={async () => {
                       console.log('🐛 Debug Info:');
                       console.log('- Form data:', formData);
                       console.log('- Loading state:', isLoading);
                       console.log('- Errors:', errors);
                       console.log('- From path:', from);
+
+                      // Test Supabase connection
+                      try {
+                        console.log('🔄 Testing Supabase connection...');
+                        const { supabase } = await import('@/lib/supabase');
+                        const { data, error } = await supabase.from('users').select('count(*)').limit(1);
+
+                        if (error) {
+                          console.error('❌ Supabase connection failed:', error);
+                        } else {
+                          console.log('✅ Supabase connection successful');
+                        }
+                      } catch (e) {
+                        console.error('❌ Supabase connection error:', e);
+                      }
+
                       if (typeof window !== 'undefined' && (window as any).debugAuth) {
                         (window as any).debugAuth.runDiagnostic();
                       }
                     }}
                   >
                     🐛 Debug Auth
+                  </Button>
+
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-white"
+                    onClick={async () => {
+                      console.log('🔄 Testing direct Supabase auth...');
+                      try {
+                        const { supabase } = await import('@/lib/supabase');
+                        const result = await supabase.auth.signInWithPassword({
+                          email: 'Rajkarthikeya10@gmail.com',
+                          password: 'SatyaANil@0804'
+                        });
+                        console.log('🔄 Direct auth result:', result);
+                      } catch (e) {
+                        console.error('❌ Direct auth error:', e);
+                      }
+                    }}
+                  >
+                    🧪 Test Direct Auth
                   </Button>
                 </div>
               )}
