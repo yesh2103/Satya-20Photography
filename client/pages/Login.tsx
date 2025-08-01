@@ -36,7 +36,7 @@ export default function Login() {
 
     if (!formData.email) {
       newErrors.email = 'Email is required';
-    } else if (formData.email !== 'rajkarthikeya10@gmail.com') {
+    } else if (formData.email !== 'Rajkarthikeya10@gmail.com') {
       newErrors.email = 'Only admin access is permitted';
     }
 
@@ -136,7 +136,7 @@ export default function Login() {
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
-                      placeholder="rajkarthikeya10@gmail.com"
+                      placeholder="Rajkarthikeya10@gmail.com"
                       className={cn(
                         "pl-10 bg-input border-luxury-medium-gray text-foreground",
                         errors.email && "border-red-500"
@@ -192,7 +192,7 @@ export default function Login() {
                 <ol className="text-yellow-300 text-sm list-decimal list-inside space-y-1">
                   <li>Go to your Supabase dashboard</li>
                   <li>Navigate to Authentication → Users</li>
-                  <li>Find the user: rajkarthikeya10@gmail.com</li>
+                  <li>Find the user: Rajkarthikeya10@gmail.com</li>
                   <li>Click the three dots and select "Confirm User"</li>
                   <li>Try logging in again</li>
                 </ol>
