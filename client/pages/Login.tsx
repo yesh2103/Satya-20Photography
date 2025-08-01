@@ -71,7 +71,12 @@ export default function Login() {
           const adminUser = directAuth.createAdminSession();
           console.log('✅ Direct auth successful');
 
-          navigate('/admin', { replace: true });
+          setSuccessMessage('Login successful! Redirecting to admin dashboard...');
+
+          // Short delay to show success message
+          setTimeout(() => {
+            navigate('/admin', { replace: true });
+          }, 1000);
           return;
         } catch (directError) {
           console.error('❌ Direct auth failed, falling back to normal auth:', directError);
