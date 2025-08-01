@@ -8,6 +8,7 @@ import { Camera, Mail, Lock, Eye, EyeOff, Shield } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import AdminBypass from '@/components/AdminBypass';
+import { testLogin } from '@/utils/testLogin';
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
