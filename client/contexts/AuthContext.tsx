@@ -80,28 +80,45 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         .single();
 
       if (error) {
-        console.error('Error fetching app user:', error);
+        console.error('Error fetching app user:', JSON.stringify(error, null, 2));
+        console.error('Error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
 
-        // If user doesn't exist in our users table, create it for the admin
-        const { data: authUser } = await supabase.auth.getUser();
-        if (authUser.user?.email === 'Rajkarthikeya10@gmail.com') {
-          const { error: insertError } = await supabase
-            .from('users')
-            .insert({
-              id: userId,
-              name: 'Satya Photography Admin',
-              email: 'Rajkarthikeya10@gmail.com',
-              role: 'owner'
-            });
-
-          if (!insertError) {
-            // Retry fetching the user
-            const { data: newData } = await supabase
+        // If user doesn't exist in our users table (PGRST116 = not found), create it for the admin
+        if (error.code === 'PGRST116') {
+          const { data: authUser } = await supabase.auth.getUser();
+          if (authUser.user?.email?.toLowerCase() === 'rajkarthikeya10@gmail.com') {
+            console.log('Creating admin user profile...');
+            const { error: insertError } = await supabase
               .from('users')
-              .select('*')
-              .eq('id', userId)
-              .single();
-            setAppUser(newData);
+              .insert({
+                id: userId,
+                name: 'Satya Photography Admin',
+                email: authUser.user.email,
+                role: 'owner'
+              });
+
+            if (insertError) {
+              console.error('Error creating admin user:', JSON.stringify(insertError, null, 2));
+            } else {
+              console.log('Admin user profile created successfully');
+              // Retry fetching the user
+              const { data: newData, error: retryError } = await supabase
+                .from('users')
+                .select('*')
+                .eq('id', userId)
+                .single();
+
+              if (!retryError && newData) {
+                setAppUser(newData);
+              } else {
+                console.error('Error retrying user fetch:', JSON.stringify(retryError, null, 2));
+              }
+            }
           }
         }
         return;
@@ -109,7 +126,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       setAppUser(data);
     } catch (error) {
-      console.error('Error fetching app user:', error);
+      console.error('Unexpected error in fetchAppUser:', error);
     }
   };
 
