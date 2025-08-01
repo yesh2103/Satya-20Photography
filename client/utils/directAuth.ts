@@ -5,18 +5,21 @@ export const directAuth = {
   // Simple credential check without Supabase auth
   validateCredentials(email: string, password: string): boolean {
     const adminEmail = 'rajkarthikeya10@gmail.com';
-    const adminPassword = 'SatyaANil@0804';
+    const validPasswords = ['SatyaANil@0804', 'SatyaAnil@0804']; // Support both cases
+
+    const emailMatch = email.toLowerCase() === adminEmail.toLowerCase();
+    const passwordMatch = validPasswords.includes(password);
 
     console.log('🔍 Direct auth validation:', {
       inputEmail: email,
       inputEmailLower: email.toLowerCase(),
       expectedEmail: adminEmail,
-      emailMatch: email.toLowerCase() === adminEmail.toLowerCase(),
-      passwordMatch: password === adminPassword,
-      passwordLength: password.length
+      emailMatch,
+      passwordMatch,
+      inputPassword: password
     });
 
-    const isValid = email.toLowerCase() === adminEmail.toLowerCase() && password === adminPassword;
+    const isValid = emailMatch && passwordMatch;
     console.log('🔍 Validation result:', isValid);
 
     return isValid;
