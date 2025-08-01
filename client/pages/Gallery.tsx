@@ -211,16 +211,43 @@ export default function Gallery() {
                 }}
                 onClick={() => openLightbox(media)}
               >
-                <img
-                  src={media.url.replace('w=800', 'w=1200')}
-                  alt={media.title || `${media.service_type} ${media.type}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.4s ease-in-out'
-                  }}
-                />
+                {media.type === 'video' ? (
+                  <>
+                    <img
+                      src="https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=1200&q=80"
+                      alt={media.title || `${media.service_type} ${media.type}`}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.4s ease-in-out'
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      background: 'rgba(255, 215, 0, 0.9)',
+                      borderRadius: '50%',
+                      padding: '15px',
+                      pointerEvents: 'none'
+                    }}>
+                      <Play className="h-8 w-8 text-black" />
+                    </div>
+                  </>
+                ) : (
+                  <img
+                    src={media.url.replace('w=800', 'w=1200')}
+                    alt={media.title || `${media.service_type} ${media.type}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.4s ease-in-out'
+                    }}
+                  />
+                )}
 
                 {/* Media Type Indicator */}
                 <div style={{
