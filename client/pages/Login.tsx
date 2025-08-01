@@ -395,18 +395,27 @@ export default function Login() {
                     className="w-full bg-red-600 hover:bg-red-700"
                     onClick={async () => {
                       console.log('🚨 Emergency login bypass activated!');
+                      setSuccessMessage('Emergency login activated! Creating admin session...');
 
                       try {
                         const { directAuth } = await import('@/utils/directAuth');
                         const adminUser = directAuth.createAdminSession();
                         console.log('✅ Emergency session created:', adminUser);
 
-                        // Force page reload to pick up the session
-                        window.location.href = '/admin';
+                        setSuccessMessage('Admin session created! Redirecting...');
+
+                        // Short delay to show message
+                        setTimeout(() => {
+                          window.location.href = '/admin';
+                        }, 1000);
                       } catch (e) {
                         console.error('❌ Emergency bypass failed:', e);
+                        setSuccessMessage('Forcing navigation to admin...');
+
                         // Last resort - direct navigation
-                        window.location.href = '/admin';
+                        setTimeout(() => {
+                          window.location.href = '/admin';
+                        }, 500);
                       }
                     }}
                   >
