@@ -154,8 +154,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signIn = async (email: string, password: string) => {
-    // Check if this is the admin email
-    if (email !== 'Rajkarthikeya10@gmail.com') {
+    // Check if this is the admin email (case insensitive)
+    if (email.toLowerCase() !== 'rajkarthikeya10@gmail.com') {
       return { error: { message: 'Only admin access is permitted' } as AuthError };
     }
 
@@ -163,6 +163,31 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       email,
       password
     });
+
+    // If login successful but user doesn't exist in our users table, create it
+    if (!error) {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user && user.email === 'Rajkarthikeya10@gmail.com') {
+        // Ensure user exists in our users table
+        const { data: existingUser } = await supabase
+          .from('users')
+          .select('*')
+          .eq('id', user.id)
+          .single();
+
+        if (!existingUser) {
+          await supabase
+            .from('users')
+            .insert({
+              id: user.id,
+              name: 'Satya Photography Admin',
+              email: user.email,
+              role: 'owner'
+            });
+        }
+      }
+    }
+
     return { error };
   };
 
