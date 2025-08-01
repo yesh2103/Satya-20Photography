@@ -212,7 +212,7 @@ export default function Gallery() {
                 onClick={() => openLightbox(media)}
               >
                 <img
-                  src={media.url}
+                  src={media.url.replace('w=800', 'w=1200')}
                   alt={media.title || `${media.service_type} ${media.type}`}
                   style={{
                     width: '100%',
@@ -325,17 +325,23 @@ export default function Gallery() {
             }}>
               <div className="aspect-video bg-luxury-dark-gray flex items-center justify-center">
                 {selectedMedia.type === "video" ? (
-                  <div className="text-center">
-                    <Play className="h-16 w-16 text-gold-400 mx-auto mb-4" />
-                    <p className="text-foreground">
-                      Video preview would appear here
+                  <video
+                    src={selectedMedia.url}
+                    controls
+                    autoPlay
+                    className="max-w-full max-h-full object-contain"
+                    style={{ width: '100%', height: '100%' }}
+                  >
+                    <p className="text-foreground text-center">
+                      Your browser does not support video playback.
                     </p>
-                  </div>
+                  </video>
                 ) : (
                   <img
-                    src={selectedMedia.url}
+                    src={selectedMedia.url.replace('w=800', 'w=1920')}
                     alt={selectedMedia.title || "Media"}
                     className="max-w-full max-h-full object-contain"
+                    style={{ maxWidth: '100%', maxHeight: '100%' }}
                   />
                 )}
               </div>

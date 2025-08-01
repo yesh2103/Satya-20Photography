@@ -61,11 +61,11 @@ const testimonials = [
 export default function Index() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Demo images for slideshow - these would be replaced with actual photos
+  // Demo images for slideshow
   const heroImages = [
-    "/placeholder.svg",
-    "/placeholder.svg",
-    "/placeholder.svg",
+    "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=1920&q=80",
+    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80",
+    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1920&q=80",
   ];
 
   // Auto-advance slideshow
@@ -255,8 +255,12 @@ export default function Index() {
                 </Button>
               </Link>
             </div>
-            <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray rounded-lg flex items-center justify-center">
-              <Camera className="h-24 w-24 text-gold-400" />
+            <div className="aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray rounded-lg overflow-hidden">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F914c1b82cf3645caa7fade56db47a9f8?format=webp&width=800"
+                alt="CEO - Raj Karthikeya"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
