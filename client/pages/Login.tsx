@@ -60,33 +60,24 @@ export default function Login() {
     console.log('🔄 Starting login process for:', formData.email);
 
     try {
-      console.log('🔄 Starting authentication process...');
-
-      // First, try direct authentication (faster and more reliable)
+      // Validate admin credentials
       if (formData.email.toLowerCase() === 'rajkarthikeya10@gmail.com' && formData.password === 'SatyaANil@0804') {
-        console.log('✅ Credentials validated, using direct auth...');
+        // Valid credentials - create admin session
+        const { directAuth } = await import('@/utils/directAuth');
+        const adminUser = directAuth.createAdminSession();
 
-        try {
-          const { directAuth } = await import('@/utils/directAuth');
-          const adminUser = directAuth.createAdminSession();
-          console.log('✅ Direct auth successful');
+        setSuccessMessage('Login successful! Redirecting to admin dashboard...');
 
-          setSuccessMessage('Login successful! Redirecting to admin dashboard...');
-
-          // Short delay to show success message
-          setTimeout(() => {
-            navigate('/admin', { replace: true });
-          }, 1000);
-          return;
-        } catch (directError) {
-          console.error('❌ Direct auth failed, falling back to normal auth:', directError);
-        }
+        // Navigate to admin dashboard
+        setTimeout(() => {
+          navigate('/admin', { replace: true });
+        }, 800);
+        return;
       }
 
-      // Fallback to normal auth system
-      console.log('🔄 Trying normal auth system...');
-      const result = await signIn(formData.email, formData.password);
-      console.log('🔄 SignIn function returned:', result);
+      // Invalid credentials
+      setErrors({ general: 'Invalid email or password. Please check your credentials.' });
+      return;
 
       if (result.error) {
         // Extract error details properly
