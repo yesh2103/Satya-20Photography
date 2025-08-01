@@ -33,9 +33,17 @@ export default function Navigation() {
             <img
               src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F2627d12ed9764db4b3d41d0ffb56fd4a?format=webp&width=800"
               alt="Satya Photography Logo"
-              className="h-16 w-16 object-contain"
+              className="h-24 w-24 object-contain drop-shadow-lg"
             />
-            <h1 className="text-2xl font-serif font-bold text-foreground">Satya Photography</h1>
+            <h1 className="text-3xl font-serif font-bold bg-gradient-to-r from-gold-400 via-yellow-300 to-gold-500 bg-clip-text text-transparent drop-shadow-lg"
+                style={{
+                  fontFamily: 'Cinzel, serif',
+                  letterSpacing: '0.05em',
+                  textShadow: '0 0 20px rgba(255, 215, 0, 0.3)',
+                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                }}>
+              SATYA<span className="text-gold-300 font-light"> PHOTOGRAPHY</span>
+            </h1>
           </Link>
           
           <nav className="hidden md:flex items-center space-x-8">
