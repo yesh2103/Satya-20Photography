@@ -6,7 +6,7 @@ INSERT INTO users (id, name, email, role)
 VALUES (
     '550e8400-e29b-41d4-a716-446655440000', -- Fixed UUID for admin
     'Satya Photography Admin', 
-    'rajkarthikeya10@gmail.com', 
+    'Rajkarthikeya10@gmail.com', 
     'owner'
 ) 
 ON CONFLICT (email) DO UPDATE SET 
@@ -19,7 +19,7 @@ ON CONFLICT (email) DO UPDATE SET
 -- Instructions for manual setup:
 -- 1. Go to Supabase Dashboard → Authentication → Users
 -- 2. If user doesn't exist, create new user:
---    - Email: rajkarthikeya10@gmail.com
+--    - Email: Rajkarthikeya10@gmail.com
 --    - Password: SatyaANil@0804
 --    - Confirm user immediately (toggle email confirmed to true)
 -- 3. If user exists but email is not confirmed:
