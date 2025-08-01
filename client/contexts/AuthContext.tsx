@@ -66,15 +66,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('🔄 Auth state changed:', event, session?.user?.email || 'no user');
+
         setSession(session);
         setUser(session?.user ?? null);
-        
+
         if (session?.user) {
+          console.log('👤 User authenticated, fetching app user...');
           await fetchAppUser(session.user.id);
         } else {
+          console.log('👤 No user, clearing app user');
           setAppUser(null);
         }
-        
+
+        console.log('🔄 Setting loading to false');
         setLoading(false);
       }
     );
