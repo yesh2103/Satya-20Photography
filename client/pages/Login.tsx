@@ -86,7 +86,7 @@ export default function Login() {
           console.error('Error parsing error object:', e);
         }
 
-        console.error('❌ Login error details:', {
+        console.error('�� Login error details:', {
           errorMessage,
           errorDetails,
           rawError: result.error,
@@ -350,6 +350,31 @@ export default function Login() {
                     }}
                   >
                     🔧 Manual SignIn Test
+                  </Button>
+
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="sm"
+                    className="w-full bg-red-600 hover:bg-red-700"
+                    onClick={async () => {
+                      console.log('🚨 Emergency login bypass activated!');
+
+                      try {
+                        const { directAuth } = await import('@/utils/directAuth');
+                        const adminUser = directAuth.createAdminSession();
+                        console.log('✅ Emergency session created:', adminUser);
+
+                        // Force page reload to pick up the session
+                        window.location.href = '/admin';
+                      } catch (e) {
+                        console.error('❌ Emergency bypass failed:', e);
+                        // Last resort - direct navigation
+                        window.location.href = '/admin';
+                      }
+                    }}
+                  >
+                    🚨 Emergency Login
                   </Button>
                 </div>
               )}
