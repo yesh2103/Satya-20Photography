@@ -132,7 +132,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signIn = async (email: string, password: string) => {
     // Check if this is the admin email
-    if (email !== 'rajkarthikeya10@gmail.com') {
+    if (email !== 'Rajkarthikeya10@gmail.com') {
       return { error: { message: 'Only admin access is permitted' } as AuthError };
     }
 
