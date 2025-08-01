@@ -181,19 +181,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       password
     });
 
+    if (error) {
+      console.error('Login error:', JSON.stringify(error, null, 2));
+    }
+
     // If login successful but user doesn't exist in our users table, create it
     if (!error) {
       const { data: { user } } = await supabase.auth.getUser();
-      if (user && user.email === 'Rajkarthikeya10@gmail.com') {
+      if (user && user.email?.toLowerCase() === 'rajkarthikeya10@gmail.com') {
         // Ensure user exists in our users table
-        const { data: existingUser } = await supabase
+        const { data: existingUser, error: fetchError } = await supabase
           .from('users')
           .select('*')
           .eq('id', user.id)
           .single();
 
-        if (!existingUser) {
-          await supabase
+        if (fetchError && fetchError.code === 'PGRST116') {
+          // User doesn't exist, create it
+          console.log('Creating user profile for logged in admin...');
+          const { error: insertError } = await supabase
             .from('users')
             .insert({
               id: user.id,
@@ -201,6 +207,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
               email: user.email,
               role: 'owner'
             });
+
+          if (insertError) {
+            console.error('Error creating user profile:', JSON.stringify(insertError, null, 2));
+          } else {
+            console.log('User profile created successfully');
+          }
         }
       }
     }
