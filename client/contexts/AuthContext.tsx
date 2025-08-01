@@ -40,14 +40,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     // Get initial session
     const getInitialSession = async () => {
+      console.log('🔄 Initializing auth session...');
+
+      // Run diagnostic if there are any issues
+      if (process.env.NODE_ENV === 'development') {
+        await debugAuth.testConnection();
+      }
+
       const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
       setUser(session?.user ?? null);
-      
+
       if (session?.user) {
+        console.log('👤 User found in session, fetching app user...');
         await fetchAppUser(session.user.id);
+      } else {
+        console.log('ℹ️ No user in initial session');
       }
-      
+
       setLoading(false);
     };
 
