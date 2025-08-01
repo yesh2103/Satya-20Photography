@@ -1,17 +1,17 @@
 # Admin Email Confirmation Fix
 
 ## Issue
-The admin user `rajkarthikeya10@gmail.com` is getting an "Email not confirmed" error when trying to login.
+The admin user `Rajkarthikeya10@gmail.com` is getting an "Email not confirmed" error when trying to login.
 
 ## Solutions
 
 ### Option 1: Confirm Email in Supabase Dashboard (Recommended)
 1. Go to your Supabase project dashboard
 2. Navigate to **Authentication** → **Users**
-3. Find the user with email: `rajkarthikeya10@gmail.com`
+3. Find the user with email: `Rajkarthikeya10@gmail.com`
 4. If the user doesn't exist:
    - Click "Add User"
-   - Email: `rajkarthikeya10@gmail.com`
+   - Email: `Rajkarthikeya10@gmail.com`
    - Password: `SatyaANil@0804`
    - Check "Auto Confirm User" checkbox
    - Click "Create User"
@@ -31,12 +31,12 @@ If you have access to the SQL editor in Supabase:
 
 ```sql
 -- Find the user in auth.users table
-SELECT id, email, email_confirmed_at FROM auth.users WHERE email = 'rajkarthikeya10@gmail.com';
+SELECT id, email, email_confirmed_at FROM auth.users WHERE email = 'Rajkarthikeya10@gmail.com';
 
 -- Confirm the email (replace USER_ID with actual user ID)
 UPDATE auth.users 
 SET email_confirmed_at = NOW() 
-WHERE email = 'rajkarthikeya10@gmail.com';
+WHERE email = 'Rajkarthikeya10@gmail.com';
 ```
 
 ## Changes Made
@@ -50,7 +50,7 @@ WHERE email = 'rajkarthikeya10@gmail.com';
 
 ### 2. AuthContext Updates
 - Added email validation in signIn function
-- Only allows `rajkarthikeya10@gmail.com` to sign in
+- Only allows `Rajkarthikeya10@gmail.com` to sign in
 - Improved error handling
 
 ### 3. Security Improvements
@@ -59,7 +59,7 @@ WHERE email = 'rajkarthikeya10@gmail.com';
 - Enhanced admin verification
 
 ## Admin Credentials
-- **Email**: rajkarthikeya10@gmail.com
+- **Email**: Rajkarthikeya10@gmail.com
 - **Password**: SatyaANil@0804
 
 ## After Fixing Email Confirmation
