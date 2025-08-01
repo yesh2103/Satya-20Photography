@@ -229,66 +229,100 @@ export default function Gallery() {
           </div>
 
           {/* Media Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredMedia.map((media) => (
-              <Card
+          <div className="flex flex-wrap justify-center gap-5">
+            {filteredMedia.map((media, index) => (
+              <div
                 key={media.id}
-                className="group cursor-pointer border-luxury-medium-gray bg-card hover:border-gold-400 transition-all duration-300 overflow-hidden"
+                className="luxury-gallery-container"
+                style={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  width: '280px',
+                  height: '400px',
+                  border: '2px solid rgba(255, 215, 0, 0.3)',
+                  borderRadius: '15px',
+                  boxShadow: '0 0 20px rgba(255, 215, 0, 0.1)',
+                  transition: 'transform 0.4s ease, box-shadow 0.4s ease',
+                  animation: 'fadeIn 0.8s ease forwards',
+                  cursor: 'pointer',
+                  animationDelay: `${index * 0.1}s`
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 0 35px rgba(255, 215, 0, 0.4)';
+                  e.currentTarget.style.borderColor = 'gold';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 215, 0, 0.3)';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1)';
+                }}
                 onClick={() => openLightbox(media)}
               >
-                <CardContent className="p-0">
-                  <div className="relative aspect-square bg-gradient-to-br from-luxury-dark-gray to-luxury-medium-gray">
-                    <img
-                      src={media.url}
-                      alt={media.title || `${media.service_type} ${media.type}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
+                <img
+                  src={media.url}
+                  alt={media.title || `${media.service_type} ${media.type}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    transition: 'transform 0.4s ease-in-out'
+                  }}
+                />
 
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-
-                    {/* Media Type Indicator */}
-                    <div className="absolute top-3 right-3">
-                      {media.type === "video" ? (
-                        <div className="bg-black/80 p-2 rounded-lg">
-                          <Play className="h-4 w-4 text-white" />
-                        </div>
-                      ) : (
-                        <div className="bg-black/80 p-2 rounded-lg">
-                          <Camera className="h-4 w-4 text-white" />
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Service Type Badge */}
-                    <div className="absolute bottom-3 left-3">
-                      <Badge className="bg-gold-400 text-luxury-black hover:bg-gold-500">
-                        {
-                          SERVICE_TYPES.find(
-                            (s) => s.value === media.service_type,
-                          )?.label
-                        }
-                      </Badge>
-                    </div>
-
-                    {/* Hover Heart Icon */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="bg-gold-400/90 p-4 rounded-full">
-                        <Heart className="h-8 w-8 text-luxury-black" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Media Info */}
-                  {media.title && (
-                    <div className="p-4">
-                      <h3 className="font-semibold text-foreground text-sm truncate">
-                        {media.title}
-                      </h3>
-                    </div>
+                {/* Media Type Indicator */}
+                <div style={{
+                  position: 'absolute',
+                  top: '12px',
+                  right: '12px',
+                  background: 'rgba(0,0,0,0.8)',
+                  padding: '8px',
+                  borderRadius: '8px'
+                }}>
+                  {media.type === "video" ? (
+                    <Play className="h-4 w-4 text-white" />
+                  ) : (
+                    <Camera className="h-4 w-4 text-white" />
                   )}
-                </CardContent>
-              </Card>
+                </div>
+
+                {/* Service Type Badge */}
+                <div style={{
+                  position: 'absolute',
+                  top: '12px',
+                  left: '12px'
+                }}>
+                  <Badge className="bg-gold-400 text-luxury-black hover:bg-gold-500">
+                    {
+                      SERVICE_TYPES.find(
+                        (s) => s.value === media.service_type,
+                      )?.label
+                    }
+                  </Badge>
+                </div>
+
+                {/* Bottom Content Overlay */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  background: 'linear-gradient(transparent, rgba(0,0,0,0.9))',
+                  padding: '20px',
+                  color: 'white'
+                }}>
+                  <h3 style={{ color: 'gold', fontSize: '16px', marginBottom: '4px', fontFamily: 'Cinzel, serif' }}>
+                    {media.title || `${media.service_type} ${media.type}`}
+                  </h3>
+                  <p style={{ fontSize: '12px', opacity: 0.9 }}>
+                    {SERVICE_TYPES.find((s) => s.value === media.service_type)?.label}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
 
