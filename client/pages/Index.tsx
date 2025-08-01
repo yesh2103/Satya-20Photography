@@ -412,6 +412,78 @@ export default function Index() {
           </div>
         </div>
       </footer>
+      {/* Footer */}
+      <footer className="bg-luxury-black border-t border-luxury-medium-gray py-12 px-6">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Logo and Description */}
+            <div>
+              <div className="flex items-center space-x-3 mb-4">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F2627d12ed9764db4b3d41d0ffb56fd4a?format=webp&width=800"
+                  alt="Satya Photography Logo"
+                  className="h-8 w-8 object-contain"
+                />
+                <h3 className="text-xl font-serif font-bold text-foreground">Satya Photography</h3>
+              </div>
+              <p className="text-muted-foreground mb-4">
+                Capturing life's most precious moments with artistic excellence and professional dedication.
+              </p>
+            </div>
+
+            {/* Contact Info */}
+            <div>
+              <h4 className="text-lg font-semibold text-foreground mb-4">Contact Us</h4>
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <Mail className="h-4 w-4 text-gold-400" />
+                  <span className="text-muted-foreground">Rajkarthikeya10@gmail.com</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Phone className="h-4 w-4 text-gold-400" />
+                  <span className="text-muted-foreground">+91 8374877776</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <MapPin className="h-4 w-4 text-gold-400" />
+                  <span className="text-muted-foreground">Hanamkonda, Warangal, Telangana</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Media */}
+            <div>
+              <h4 className="text-lg font-semibold text-foreground mb-4">Follow Us</h4>
+              <div className="flex space-x-4">
+                <a
+                  href="https://www.instagram.com/_satyaphotography_/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gold-400/20 p-3 rounded-lg hover:bg-gold-400/30 transition-colors group"
+                >
+                  <Instagram className="h-6 w-6 text-gold-400 group-hover:scale-110 transition-transform" />
+                </a>
+                <a
+                  href="https://www.youtube.com/@rajkarthikeya2892"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gold-400/20 p-3 rounded-lg hover:bg-gold-400/30 transition-colors group"
+                >
+                  <svg className="h-6 w-6 text-gold-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="border-t border-luxury-medium-gray mt-8 pt-6 text-center">
+            <p className="text-muted-foreground">
+              © {new Date().getFullYear()} Satya Photography. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
