@@ -182,53 +182,75 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const signIn = async (email: string, password: string) => {
+    console.log('🔄 AuthContext signIn called for:', email);
+
     // Check if this is the admin email (case insensitive)
     if (email.toLowerCase() !== 'rajkarthikeya10@gmail.com') {
+      console.log('❌ Email validation failed - not admin email');
       return { error: { message: 'Only admin access is permitted' } as AuthError };
     }
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password
-    });
+    console.log('✅ Email validation passed, attempting Supabase auth...');
 
-    if (error) {
-      console.error('Login error:', JSON.stringify(error, null, 2));
-    }
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
 
-    // If login successful but user doesn't exist in our users table, create it
-    if (!error) {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user && user.email?.toLowerCase() === 'rajkarthikeya10@gmail.com') {
-        // Ensure user exists in our users table
-        const { data: existingUser, error: fetchError } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', user.id)
-          .single();
+      if (error) {
+        console.error('❌ Supabase auth error:', JSON.stringify(error, null, 2));
+        return { error };
+      }
 
-        if (fetchError && fetchError.code === 'PGRST116') {
-          // User doesn't exist, create it
-          console.log('Creating user profile for logged in admin...');
-          const { error: insertError } = await supabase
+      console.log('✅ Supabase auth successful');
+
+      // If login successful but user doesn't exist in our users table, create it
+      try {
+        console.log('🔄 Checking/creating user profile...');
+        const { data: { user } } = await supabase.auth.getUser();
+
+        if (user && user.email?.toLowerCase() === 'rajkarthikeya10@gmail.com') {
+          // Ensure user exists in our users table
+          const { data: existingUser, error: fetchError } = await supabase
             .from('users')
-            .insert({
-              id: user.id,
-              name: 'Satya Photography Admin',
-              email: user.email,
-              role: 'owner'
-            });
+            .select('*')
+            .eq('id', user.id)
+            .single();
 
-          if (insertError) {
-            console.error('Error creating user profile:', JSON.stringify(insertError, null, 2));
-          } else {
-            console.log('User profile created successfully');
+          if (fetchError && fetchError.code === 'PGRST116') {
+            // User doesn't exist, create it
+            console.log('🔄 Creating user profile for logged in admin...');
+            const { error: insertError } = await supabase
+              .from('users')
+              .insert({
+                id: user.id,
+                name: 'Satya Photography Admin',
+                email: user.email,
+                role: 'owner'
+              });
+
+            if (insertError) {
+              console.error('❌ Error creating user profile:', JSON.stringify(insertError, null, 2));
+            } else {
+              console.log('✅ User profile created successfully');
+            }
+          } else if (!fetchError) {
+            console.log('✅ User profile already exists');
           }
         }
+      } catch (profileError) {
+        console.error('❌ Error in profile creation process:', profileError);
+        // Don't fail the login for profile creation errors
       }
-    }
 
-    return { error };
+      console.log('✅ SignIn process completed successfully');
+      return { error: null };
+
+    } catch (authError) {
+      console.error('❌ Unexpected error in signIn:', authError);
+      return { error: { message: 'Authentication failed. Please try again.' } as AuthError };
+    }
   };
 
   const signInWithGoogle = async () => {
