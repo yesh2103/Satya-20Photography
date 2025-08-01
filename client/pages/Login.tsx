@@ -239,14 +239,22 @@ export default function Login() {
                     size="sm"
                     className="w-full border-green-400 text-green-400 hover:bg-green-400 hover:text-white"
                     onClick={async () => {
-                      console.log('🔄 Testing direct Supabase auth...');
+                      console.log('🔄 Testing direct auth system...');
                       try {
-                        const { supabase } = await import('@/lib/supabase');
-                        const result = await supabase.auth.signInWithPassword({
-                          email: 'Rajkarthikeya10@gmail.com',
-                          password: 'SatyaANil@0804'
-                        });
-                        console.log('🔄 Direct auth result:', result);
+                        const { directAuth } = await import('@/utils/directAuth');
+                        const isValid = directAuth.validateCredentials(
+                          'Rajkarthikeya10@gmail.com',
+                          'SatyaANil@0804'
+                        );
+                        console.log('✅ Direct auth validation:', isValid);
+
+                        if (isValid) {
+                          const adminUser = directAuth.createAdminSession();
+                          console.log('✅ Admin session created:', adminUser);
+
+                          // Force reload to pick up the session
+                          window.location.reload();
+                        }
                       } catch (e) {
                         console.error('❌ Direct auth error:', e);
                       }
