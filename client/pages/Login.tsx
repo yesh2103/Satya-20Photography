@@ -183,19 +183,45 @@ export default function Login() {
                 </Button>
               </form>
 
-              {/* Email Confirmation Instructions */}
-              <div className="mt-6 p-4 bg-yellow-900/20 border border-yellow-800 rounded-lg">
-                <h3 className="text-yellow-400 font-semibold mb-2">Email Not Confirmed?</h3>
-                <p className="text-yellow-300 text-sm mb-2">
-                  If you see an "Email not confirmed" error, follow these steps:
+              {/* Authentication Setup Instructions */}
+              <div className="mt-6 p-4 bg-blue-900/20 border border-blue-800 rounded-lg">
+                <h3 className="text-blue-400 font-semibold mb-2">🔧 Admin Setup Required</h3>
+                <p className="text-blue-300 text-sm mb-2">
+                  If login fails, the admin user needs to be created in Supabase:
                 </p>
-                <ol className="text-yellow-300 text-sm list-decimal list-inside space-y-1">
-                  <li>Go to your Supabase dashboard</li>
-                  <li>Navigate to Authentication → Users</li>
-                  <li>Find the user: Rajkarthikeya10@gmail.com</li>
-                  <li>Click the three dots and select "Confirm User"</li>
+                <ol className="text-blue-300 text-sm list-decimal list-inside space-y-1">
+                  <li>Go to your Supabase Dashboard</li>
+                  <li>Navigate to <strong>Authentication → Users</strong></li>
+                  <li>Click <strong>"Create User"</strong></li>
+                  <li>Email: <code className="bg-blue-800 px-1 rounded">Rajkarthikeya10@gmail.com</code></li>
+                  <li>Password: <code className="bg-blue-800 px-1 rounded">SatyaANil@0804</code></li>
+                  <li>Check <strong>"Auto Confirm User"</strong></li>
+                  <li>Click <strong>"Create User"</strong></li>
                   <li>Try logging in again</li>
                 </ol>
+              </div>
+
+              {/* Email Confirmation Instructions */}
+              <div className="mt-4 p-4 bg-yellow-900/20 border border-yellow-800 rounded-lg">
+                <h3 className="text-yellow-400 font-semibold mb-2">📧 Email Not Confirmed?</h3>
+                <p className="text-yellow-300 text-sm mb-2">
+                  If you see "Email not confirmed" error:
+                </p>
+                <ol className="text-yellow-300 text-sm list-decimal list-inside space-y-1">
+                  <li>Go to Authentication → Users</li>
+                  <li>Find: Rajkarthikeya10@gmail.com</li>
+                  <li>Click the three dots (⋯) → "Confirm User"</li>
+                  <li>Try logging in again</li>
+                </ol>
+              </div>
+
+              {/* Alternative Solution */}
+              <div className="mt-4 p-4 bg-green-900/20 border border-green-800 rounded-lg">
+                <h3 className="text-green-400 font-semibold mb-2">⚡ Quick Fix</h3>
+                <p className="text-green-300 text-sm">
+                  <strong>Disable email confirmation:</strong> Authentication → Settings →
+                  Email Auth → Uncheck "Enable email confirmations"
+                </p>
               </div>
             </CardContent>
           </Card>
