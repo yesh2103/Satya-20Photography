@@ -5,10 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Camera, Mail, Lock, Eye, EyeOff, Shield } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import AdminBypass from '@/components/AdminBypass';
-import { testLogin } from '@/utils/testLogin';
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
