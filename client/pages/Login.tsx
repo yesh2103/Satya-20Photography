@@ -142,6 +142,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-background">
+      <AdminBypass />
       {/* Header */}
       <header className="border-b border-luxury-medium-gray">
         <div className="container mx-auto px-6 py-4">
