@@ -103,9 +103,18 @@ export default function Index() {
         </div>
 
         <div className="relative z-20 text-center max-w-4xl mx-auto px-6">
-          <h1 className="text-5xl md:text-7xl font-serif mb-6 text-foreground leading-tight">
-            Capturing Life's
-            <span className="block text-gold-400">Golden Moments</span>
+          <h1 className="text-5xl md:text-7xl font-serif mb-6 leading-tight"
+              style={{
+                fontFamily: 'Cinzel, serif',
+                letterSpacing: '0.02em'
+              }}>
+            <span className="bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent drop-shadow-lg">
+              Capturing Life's
+            </span>
+            <span className="block bg-gradient-to-r from-gold-400 via-yellow-300 to-gold-500 bg-clip-text text-transparent"
+                  style={{ textShadow: '0 0 30px rgba(255, 215, 0, 0.5)' }}>
+              Golden Moments
+            </span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Where artistry meets emotion. Professional photography that tells

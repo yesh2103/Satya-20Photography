@@ -46,8 +46,14 @@ export default function About() {
           {/* Welcome Section */}
           <section className="text-center mb-20">
             <div className="max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-6xl font-serif mb-6 text-foreground">
-                About Satya Photography
+              <h1 className="text-4xl md:text-6xl font-serif mb-6 bg-gradient-to-r from-gold-400 via-yellow-300 to-gold-500 bg-clip-text text-transparent"
+                  style={{
+                    fontFamily: 'Cinzel, serif',
+                    letterSpacing: '0.05em',
+                    textShadow: '0 0 25px rgba(255, 215, 0, 0.4)',
+                    filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                  }}>
+                ABOUT SATYA PHOTOGRAPHY
               </h1>
               <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8">
                 Welcome to Satya Photography, where every frame tells a story and every moment becomes a treasured memory.
