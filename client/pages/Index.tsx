@@ -426,9 +426,16 @@ export default function Index() {
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F2627d12ed9764db4b3d41d0ffb56fd4a?format=webp&width=800"
                   alt="Satya Photography Logo"
-                  className="h-12 w-12 object-contain"
+                  className="h-16 w-16 object-contain drop-shadow-lg"
                 />
-                <h3 className="text-xl font-serif font-bold text-foreground">Satya Photography</h3>
+                <h3 className="text-2xl font-serif font-bold bg-gradient-to-r from-gold-400 via-yellow-300 to-gold-500 bg-clip-text text-transparent"
+                    style={{
+                      fontFamily: 'Cinzel, serif',
+                      letterSpacing: '0.05em',
+                      textShadow: '0 0 15px rgba(255, 215, 0, 0.3)'
+                    }}>
+                  SATYA<span className="text-gold-300 font-light"> PHOTOGRAPHY</span>
+                </h3>
               </div>
               <p className="text-muted-foreground mb-4">
                 Capturing life's most precious moments with artistic excellence and professional dedication.
