@@ -81,6 +81,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
       if (error) {
         console.error('Error fetching app user:', error);
+
+        // If user doesn't exist in our users table, create it for the admin
+        const { data: authUser } = await supabase.auth.getUser();
+        if (authUser.user?.email === 'Rajkarthikeya10@gmail.com') {
+          const { error: insertError } = await supabase
+            .from('users')
+            .insert({
+              id: userId,
+              name: 'Satya Photography Admin',
+              email: 'Rajkarthikeya10@gmail.com',
+              role: 'owner'
+            });
+
+          if (!insertError) {
+            // Retry fetching the user
+            const { data: newData } = await supabase
+              .from('users')
+              .select('*')
+              .eq('id', userId)
+              .single();
+            setAppUser(newData);
+          }
+        }
         return;
       }
 
