@@ -50,30 +50,47 @@ export default function Login() {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsLoading(true);
-    
+    console.log('🔄 Starting login process for:', formData.email);
+
     try {
-      const { error } = await signIn(formData.email, formData.password);
-      
+      // Add timeout to prevent hanging
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Login timeout after 30 seconds')), 30000)
+      );
+
+      const loginPromise = signIn(formData.email, formData.password);
+
+      const { error } = await Promise.race([loginPromise, timeoutPromise]) as any;
+
+      console.log('🔄 Login result:', error ? 'Error' : 'Success');
+
       if (error) {
+        console.error('❌ Login error:', error);
+
         if (error.message.includes('Email not confirmed')) {
-          setErrors({ 
-            general: 'Your email needs to be confirmed. Please check the instructions below to confirm your email.' 
+          setErrors({
+            general: 'Your email needs to be confirmed. Please check the instructions below to confirm your email.'
           });
         } else if (error.message.includes('Invalid login credentials')) {
           setErrors({ general: 'Invalid email or password. Please check your credentials.' });
+        } else if (error.message.includes('timeout')) {
+          setErrors({ general: 'Login timed out. Please check your connection and try again.' });
         } else {
           setErrors({ general: error.message });
         }
       } else {
+        console.log('✅ Login successful, navigating to:', from);
         navigate(from, { replace: true });
       }
     } catch (error) {
-      setErrors({ general: 'An unexpected error occurred' });
+      console.error('❌ Unexpected login error:', error);
+      setErrors({ general: 'An unexpected error occurred. Please try again.' });
     } finally {
+      console.log('🔄 Login process completed, setting loading to false');
       setIsLoading(false);
     }
   };
