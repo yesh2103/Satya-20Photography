@@ -271,6 +271,35 @@ export default function Login() {
                   >
                     🧪 Test Direct Auth
                   </Button>
+
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white"
+                    onClick={async () => {
+                      console.log('🔄 Testing signIn function directly...');
+                      setIsLoading(true);
+
+                      try {
+                        const result = await signIn('Rajkarthikeya10@gmail.com', 'SatyaANil@0804');
+                        console.log('🔄 Direct signIn result:', result);
+
+                        if (!result.error) {
+                          console.log('✅ Manual signIn successful, navigating...');
+                          navigate('/admin', { replace: true });
+                        } else {
+                          console.error('❌ Manual signIn failed:', result.error);
+                        }
+                      } catch (e) {
+                        console.error('❌ Manual signIn exception:', e);
+                      } finally {
+                        setIsLoading(false);
+                      }
+                    }}
+                  >
+                    🔧 Manual SignIn Test
+                  </Button>
                 </div>
               )}
 
