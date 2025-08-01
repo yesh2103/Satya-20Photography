@@ -3,6 +3,7 @@ import { User, Session, AuthError } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import type { User as AppUser } from '@shared/types';
 import { debugAuth } from '@/utils/authDebug';
+import { directAuth } from '@/utils/directAuth';
 
 interface AuthContextType {
   user: User | null;
