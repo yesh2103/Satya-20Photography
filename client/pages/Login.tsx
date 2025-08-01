@@ -88,7 +88,7 @@ export default function Login() {
           console.error('Error parsing error object:', e);
         }
 
-        console.error('�� Login error details:', {
+        console.error('ERROR Login error details:', {
           errorMessage,
           errorDetails,
           rawError: result.error,
