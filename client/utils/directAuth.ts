@@ -6,8 +6,20 @@ export const directAuth = {
   validateCredentials(email: string, password: string): boolean {
     const adminEmail = 'rajkarthikeya10@gmail.com';
     const adminPassword = 'SatyaANil@0804';
-    
-    return email.toLowerCase() === adminEmail.toLowerCase() && password === adminPassword;
+
+    console.log('🔍 Direct auth validation:', {
+      inputEmail: email,
+      inputEmailLower: email.toLowerCase(),
+      expectedEmail: adminEmail,
+      emailMatch: email.toLowerCase() === adminEmail.toLowerCase(),
+      passwordMatch: password === adminPassword,
+      passwordLength: password.length
+    });
+
+    const isValid = email.toLowerCase() === adminEmail.toLowerCase() && password === adminPassword;
+    console.log('🔍 Validation result:', isValid);
+
+    return isValid;
   },
 
   // Create a mock session for the admin
