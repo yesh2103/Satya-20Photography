@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Navigation from "@/components/Navigation";
 import { Camera, Filter, Play, Heart } from "lucide-react";
 import type { Media, ServiceType } from "@shared/types";
 import { SERVICE_TYPES } from "@shared/types";
@@ -114,60 +115,7 @@ export default function Gallery() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0d0d0d', fontFamily: 'Cinzel, serif' }}>
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-sm border-b border-luxury-medium-gray">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2Fec2c2ce815f146f392d6151dbdcd7a6d%2F2627d12ed9764db4b3d41d0ffb56fd4a?format=webp&width=800"
-                alt="Satya Photography Logo"
-                className="h-8 w-8 object-contain"
-              />
-              <h1 className="text-2xl font-serif font-bold text-foreground">
-                Satya Photography
-              </h1>
-            </div>
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link
-                to="/"
-                className="text-foreground hover:text-gold-400 transition-colors"
-              >
-                Home
-              </Link>
-              <Link to="/gallery" className="text-gold-400">
-                Gallery
-              </Link>
-              <Link
-                to="/about"
-                className="text-foreground hover:text-gold-400 transition-colors"
-              >
-                About
-              </Link>
-              <Link
-                to="/packages"
-                className="text-foreground hover:text-gold-400 transition-colors"
-              >
-                Packages
-              </Link>
-              <Link
-                to="/contact"
-                className="text-foreground hover:text-gold-400 transition-colors"
-              >
-                Contact
-              </Link>
-              <Link to="/login">
-                <Button
-                  variant="outline"
-                  className="border-gold-400 text-gold-400 hover:bg-gold-400 hover:text-luxury-black"
-                >
-                  Login
-                </Button>
-              </Link>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Navigation />
 
       <div className="pt-24 pb-12 px-6">
         <div className="container mx-auto">
@@ -325,6 +273,12 @@ export default function Gallery() {
               </div>
             ))}
           </div>
+          <style jsx>{`
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(20px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+          `}</style>
 
           {/* Empty State */}
           {filteredMedia.length === 0 && (
