@@ -1,5 +1,6 @@
-/* Import Cinzel font for luxury typography */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
+/* Import luxury fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -44,6 +45,36 @@
 
 .luxury-gallery-container:hover img {
   transform: scale(1.1);
+}
+
+/* Luxury title animations */
+.luxury-title {
+  animation: luxury-glow 3s ease-in-out infinite;
+}
+
+@keyframes luxury-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+  }
+}
+
+/* Luxury gradient text effect */
+.luxury-gradient-text {
+  background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700, #ffcd3c);
+  background-size: 300% 300%;
+  animation: gradient-shift 4s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @layer base {
