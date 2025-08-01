@@ -160,8 +160,15 @@ export default function Index() {
       <section className="py-20 px-6" style={{ backgroundColor: '#0d0d0d', fontFamily: 'Cinzel, serif' }}>
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif mb-4" style={{ color: 'gold', textShadow: '0 0 15px rgba(255, 215, 0, 0.3)', fontSize: '40px' }}>
-              Our Services
+            <h2 className="text-4xl md:text-5xl font-serif mb-4 bg-gradient-to-r from-gold-400 via-yellow-300 to-gold-500 bg-clip-text text-transparent"
+                style={{
+                  fontFamily: 'Cinzel, serif',
+                  fontSize: '48px',
+                  letterSpacing: '0.05em',
+                  textShadow: '0 0 20px rgba(255, 215, 0, 0.4)',
+                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                }}>
+              OUR SERVICES
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               From intimate moments to grand celebrations, we capture every
