@@ -141,7 +141,16 @@ export default function Login() {
               {/* General Error Message */}
               {errors.general && (
                 <div className="mb-4 p-3 bg-red-900/20 border border-red-800 rounded-lg">
-                  <p className="text-red-400 text-sm">{errors.general}</p>
+                  <p className="text-red-400 text-sm font-medium">❌ Authentication Error</p>
+                  <p className="text-red-300 text-sm mt-1">{errors.general}</p>
+                </div>
+              )}
+
+              {/* Loading Status */}
+              {isLoading && (
+                <div className="mb-4 p-3 bg-blue-900/20 border border-blue-800 rounded-lg">
+                  <p className="text-blue-400 text-sm font-medium">🔄 Authenticating...</p>
+                  <p className="text-blue-300 text-sm mt-1">Please wait while we verify your credentials</p>
                 </div>
               )}
 
