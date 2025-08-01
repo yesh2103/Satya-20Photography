@@ -200,6 +200,30 @@ export default function Login() {
                 </Button>
               </form>
 
+              {/* Debug button for development */}
+              {process.env.NODE_ENV === 'development' && (
+                <div className="mt-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="w-full border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white"
+                    onClick={() => {
+                      console.log('🐛 Debug Info:');
+                      console.log('- Form data:', formData);
+                      console.log('- Loading state:', isLoading);
+                      console.log('- Errors:', errors);
+                      console.log('- From path:', from);
+                      if (typeof window !== 'undefined' && (window as any).debugAuth) {
+                        (window as any).debugAuth.runDiagnostic();
+                      }
+                    }}
+                  >
+                    🐛 Debug Auth
+                  </Button>
+                </div>
+              )}
+
               {/* Authentication Setup Instructions */}
               <div className="mt-6 p-4 bg-blue-900/20 border border-blue-800 rounded-lg">
                 <h3 className="text-blue-400 font-semibold mb-2">🔧 Admin Setup Required</h3>
