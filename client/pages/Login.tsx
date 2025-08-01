@@ -57,30 +57,21 @@ export default function Login() {
     console.log('🔄 Starting login process for:', formData.email);
 
     try {
-      // Add timeout to prevent hanging
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Login timeout after 30 seconds')), 30000)
-      );
+      console.log('🔄 Calling signIn function...');
+      const result = await signIn(formData.email, formData.password);
+      console.log('🔄 SignIn function returned:', result);
 
-      const loginPromise = signIn(formData.email, formData.password);
+      if (result.error) {
+        console.error('❌ Login error:', result.error);
 
-      const { error } = await Promise.race([loginPromise, timeoutPromise]) as any;
-
-      console.log('🔄 Login result:', error ? 'Error' : 'Success');
-
-      if (error) {
-        console.error('❌ Login error:', error);
-
-        if (error.message.includes('Email not confirmed')) {
+        if (result.error.message.includes('Email not confirmed')) {
           setErrors({
             general: 'Your email needs to be confirmed. Please check the instructions below to confirm your email.'
           });
-        } else if (error.message.includes('Invalid login credentials')) {
+        } else if (result.error.message.includes('Invalid login credentials')) {
           setErrors({ general: 'Invalid email or password. Please check your credentials.' });
-        } else if (error.message.includes('timeout')) {
-          setErrors({ general: 'Login timed out. Please check your connection and try again.' });
         } else {
-          setErrors({ general: error.message });
+          setErrors({ general: result.error.message });
         }
       } else {
         console.log('✅ Login successful, navigating to:', from);
@@ -88,7 +79,9 @@ export default function Login() {
       }
     } catch (error) {
       console.error('❌ Unexpected login error:', error);
-      setErrors({ general: 'An unexpected error occurred. Please try again.' });
+      setErrors({
+        general: `Authentication failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      });
     } finally {
       console.log('🔄 Login process completed, setting loading to false');
       setIsLoading(false);
