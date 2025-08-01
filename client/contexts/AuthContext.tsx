@@ -224,41 +224,52 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     console.log('✅ Email validation passed, attempting authentication...');
 
-    // First try direct credential validation
-    if (directAuth.validateCredentials(email, password)) {
-      console.log('✅ Direct credential validation successful');
+    try {
+      // First try direct credential validation
+      console.log('🔄 Attempting direct credential validation...');
 
-      // Create admin session
-      const adminUser = directAuth.createAdminSession();
-      console.log('✅ Admin session created');
+      if (directAuth.validateCredentials(email, password)) {
+        console.log('✅ Direct credential validation successful');
 
-      // Set the app user state
-      setAppUser({
-        id: adminUser.id,
-        name: adminUser.name,
-        email: adminUser.email,
-        role: 'owner',
-        phone: null,
-        created_at: adminUser.created_at
-      });
+        // Create admin session
+        const adminUser = directAuth.createAdminSession();
+        console.log('✅ Admin session created:', adminUser);
 
-      // Create a mock user for the user state
-      const mockUser = {
-        id: adminUser.id,
-        email: adminUser.email,
-        email_confirmed_at: adminUser.email_confirmed_at,
-        created_at: adminUser.created_at
-      } as User;
+        // Set the app user state
+        const appUserData = {
+          id: adminUser.id,
+          name: adminUser.name,
+          email: adminUser.email,
+          role: 'owner' as const,
+          phone: null,
+          created_at: adminUser.created_at
+        };
 
-      setUser(mockUser);
-      setLoading(false);
+        setAppUser(appUserData);
+        console.log('✅ App user state set:', appUserData);
 
-      console.log('✅ Direct auth completed successfully');
-      return { error: null };
+        // Create a mock user for the user state
+        const mockUser = {
+          id: adminUser.id,
+          email: adminUser.email,
+          email_confirmed_at: adminUser.email_confirmed_at,
+          created_at: adminUser.created_at
+        } as User;
+
+        setUser(mockUser);
+        setLoading(false);
+
+        console.log('✅ Direct auth completed successfully');
+        return { error: null };
+      }
+
+      console.log('❌ Direct credential validation failed');
+      return { error: { message: 'Invalid email or password' } as AuthError };
+
+    } catch (directAuthError) {
+      console.error('❌ Error in direct auth process:', directAuthError);
+      return { error: { message: 'Authentication system error. Please try again.' } as AuthError };
     }
-
-    console.log('❌ Direct credential validation failed');
-    return { error: { message: 'Invalid email or password' } as AuthError };
   };
 
   const signInWithGoogle = async () => {
