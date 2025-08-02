@@ -27,7 +27,9 @@ function App() {
     if (!hasCleared) {
       MediaStore.clearAllData();
       localStorage.setItem('demo_data_cleared', 'true');
-      console.log('Demo data cleared on first app load');
+      console.log('✨ Demo data cleared on first app load');
+    } else {
+      console.log('✅ Demo data already cleared, app ready');
     }
   }, []);
 
