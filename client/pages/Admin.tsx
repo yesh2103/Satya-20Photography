@@ -51,6 +51,11 @@ export default function Admin() {
   useEffect(() => {
     // Load media and submissions from MediaStore
     loadData();
+
+    // Set up interval to refresh data every 3 seconds
+    const interval = setInterval(loadData, 3000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const loadData = () => {
