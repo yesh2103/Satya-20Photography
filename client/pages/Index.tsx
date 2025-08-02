@@ -14,6 +14,20 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
+import MediaStore from "@/utils/mediaStore";
+import type { Media, ServiceType } from "@shared/types";
+import { SERVICE_TYPES } from "@shared/types";
+
+// Map service type values to display names
+const categoryMapping: { [key: string]: ServiceType } = {
+  "Wedding": "wedding",
+  "Pre-wedding": "prewedding",
+  "New Born Photoshoot": "newborn",
+  "Birthdays": "birthdays",
+  "Retirement": "retirement",
+  "Events": "events",
+  "Engagement": "engagement",
+};
 
 const categories = [
   "Wedding",
@@ -25,7 +39,8 @@ const categories = [
   "Engagement",
 ];
 
-const getServiceImage = (index: number) => {
+// Fallback images for services without uploaded content
+const getServiceFallbackImage = (index: number) => {
   const serviceImages = [
     'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=800&q=80', // Wedding
     'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80', // Pre-wedding
@@ -60,13 +75,37 @@ const testimonials = [
 
 export default function Index() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [allMedia, setAllMedia] = useState<Media[]>([]);
+  const [heroImages, setHeroImages] = useState<string[]>([]);
 
-  // Demo images for slideshow
-  const heroImages = [
-    "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80",
-    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1920&q=80",
-  ];
+  // Load media from MediaStore
+  useEffect(() => {
+    const loadMedia = () => {
+      const media = MediaStore.getAllMedia();
+      setAllMedia(media);
+
+      // Get photos for hero slideshow (prefer photos over videos)
+      const photos = media.filter(m => m.type === 'photo');
+      if (photos.length > 0) {
+        // Use first 3 photos, or repeat if less than 3
+        const images = photos.slice(0, 3).map(p => p.url);
+        setHeroImages(images);
+      } else {
+        // Fallback to demo images if no uploads
+        setHeroImages([
+          "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=1920&q=80",
+          "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80",
+          "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1920&q=80",
+        ]);
+      }
+    };
+
+    loadMedia();
+    // Refresh every 5 seconds to get new uploads
+    const interval = setInterval(loadMedia, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Auto-advance slideshow
   useEffect(() => {
@@ -209,7 +248,12 @@ export default function Index() {
                 }}
               >
                 <img
-                  src={getServiceImage(index)}
+                  src={(() => {
+                    const serviceType = categoryMapping[category];
+                    const categoryMedia = allMedia.filter(m => m.service_type === serviceType && m.type === 'photo');
+                    return categoryMedia.length > 0 ? categoryMedia[0].url : getServiceFallbackImage(index);
+                  })()
+                  }
                   alt={category}
                   style={{
                     width: '100%',
