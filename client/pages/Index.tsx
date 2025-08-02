@@ -254,9 +254,10 @@ export default function Index() {
                   src={(() => {
                     const serviceType = categoryMapping[category];
                     const categoryMedia = allMedia.filter(m => m.service_type === serviceType && m.type === 'photo');
-                    return categoryMedia.length > 0 ? categoryMedia[0].url : getServiceFallbackImage(index);
-                  })()
-                  }
+                    const imageUrl = categoryMedia.length > 0 ? categoryMedia[0].url : getServiceFallbackImage(index);
+                    console.log(`Service ${category} (${serviceType}): found ${categoryMedia.length} images, using:`, imageUrl);
+                    return imageUrl;
+                  })()}
                   alt={category}
                   style={{
                     width: '100%',
