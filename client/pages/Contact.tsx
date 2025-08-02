@@ -11,10 +11,9 @@ import { Mail, Phone, MapPin, CalendarIcon, Send, Instagram, Facebook } from 'lu
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 import Navigation from '@/components/Navigation';
-// Login removed for public access
-import { supabase } from '@/lib/supabase';
-import type { ContactFormData, ServiceType } from '@shared/types';
+import type { ContactFormData, ServiceType, ContactFormSubmission } from '@shared/types';
 import { SERVICE_TYPES } from '@shared/types';
+import MediaStore from '@/utils/mediaStore';
 
 export default function Contact() {
   const [formData, setFormData] = useState<ContactFormData>({
