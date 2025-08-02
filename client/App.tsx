@@ -20,6 +20,16 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 function App() {
+  // Clear any existing demo data on app startup
+  React.useEffect(() => {
+    const hasCleared = localStorage.getItem('demo_data_cleared');
+    if (!hasCleared) {
+      MediaStore.clearAllData();
+      localStorage.setItem('demo_data_cleared', 'true');
+      console.log('Demo data cleared on first app load');
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
