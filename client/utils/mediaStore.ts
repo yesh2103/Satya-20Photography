@@ -108,10 +108,14 @@ class MediaStore {
   static getAllMedia(): Media[] {
     try {
       const stored = localStorage.getItem(this.MEDIA_KEY);
+      console.log('MediaStore: Loading media from localStorage:', stored ? 'Found data' : 'No data');
       if (stored) {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        console.log('MediaStore: Loaded', parsed.length, 'media items');
+        return parsed;
       }
       // Initialize with default data
+      console.log('MediaStore: Initializing with default data');
       this.setAllMedia(this.defaultMedia);
       return this.defaultMedia;
     } catch (error) {
