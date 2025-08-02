@@ -65,7 +65,7 @@ export const SimpleAuthProvider = ({ children }: SimpleAuthProviderProps) => {
     checkSession();
 
     // Set up a periodic check for session changes
-    const interval = setInterval(checkSession, 1000); // Check every second
+    const interval = setInterval(checkSession, 500); // Check every 0.5 seconds
 
     return () => clearInterval(interval);
   }, []);
