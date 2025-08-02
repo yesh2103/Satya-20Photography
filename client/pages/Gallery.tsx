@@ -103,7 +103,7 @@ export default function Gallery() {
               </Button>
 
               {SERVICE_TYPES.map((service) => {
-                const count = demoMedia.filter(
+                const count = allMedia.filter(
                   (media) => media.service_type === service.value,
                 ).length;
                 return (
