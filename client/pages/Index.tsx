@@ -116,26 +116,35 @@ export default function Index() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden" style={{ paddingTop: '0px' }}>
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-background/40 z-10" />
 
-        {/* Background Slideshow */}
+        {/* Background Slideshow or Fallback */}
         <div className="absolute inset-0">
-          {heroImages.map((image, index) => (
+          {heroImages.length > 0 ? (
+            heroImages.map((image, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-opacity duration-1000 ${
+                  index === currentSlide ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <img
+                  src={image}
+                  alt={`Hero ${index + 1}`}
+                  className="w-full h-full object-cover object-center"
+                  style={{
+                    objectPosition: 'center center',
+                    minHeight: '100vh'
+                  }}
+                />
+              </div>
+            ))
+          ) : (
             <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentSlide ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <img
-                src={image}
-                alt={`Hero ${index + 1}`}
-                className="w-full h-full object-cover object-center"
-                style={{
-                  objectPosition: 'center center',
-                  minHeight: '100vh'
-                }}
-              />
-            </div>
-          ))}
+              className="absolute inset-0 bg-gradient-to-br from-luxury-dark-gray via-background to-luxury-medium-gray"
+              style={{
+                background: 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 50%, #262626 100%)'
+              }}
+            />
+          )}
         </div>
 
         <div className="relative z-20 text-center max-w-4xl mx-auto px-6">
