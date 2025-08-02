@@ -288,6 +288,27 @@ export default function Index() {
             );
             }).filter(Boolean)}
           </div>
+
+          {allMedia.length === 0 && (
+            <div className="text-center py-16">
+              <div className="max-w-2xl mx-auto">
+                <h3 className="text-2xl font-serif text-gold-400 mb-4">
+                  Portfolio Coming Soon
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Our photography portfolio is being updated with the latest work.
+                  Please check back soon to see our beautiful collection of captured moments.
+                </p>
+                <p className="text-muted-foreground">
+                  For immediate inquiries, please feel free to{' '}
+                  <Link to="/contact" className="text-gold-400 hover:text-gold-500 underline">
+                    contact us directly
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
