@@ -113,7 +113,7 @@ export default function Index() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden" style={{ paddingTop: '0px' }}>
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-background/40 z-10" />
 
         {/* Background Slideshow */}
