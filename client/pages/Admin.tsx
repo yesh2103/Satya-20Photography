@@ -38,7 +38,8 @@ export default function Admin() {
   const [submissions, setSubmissions] = useState<ContactFormSubmission[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<ServiceType | 'all'>('all');
-  
+  const [uploadStatus, setUploadStatus] = useState<string>('');
+
   // Upload form state
   const [uploadForm, setUploadForm] = useState({
     title: '',
