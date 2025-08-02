@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 import { Camera, Filter, Play, Heart } from "lucide-react";
 import type { Media, ServiceType } from "@shared/types";
 import { SERVICE_TYPES } from "@shared/types";
+import MediaStore from "@/utils/mediaStore";
 
 // Demo media data - in real app this would come from API/database
 const demoMedia: Media[] = [
