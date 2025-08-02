@@ -110,8 +110,27 @@ export default function Admin() {
 
   const handleDeleteMedia = async (mediaId: string) => {
     if (confirm('Are you sure you want to delete this media?')) {
+      MediaStore.deleteMedia(mediaId);
       setMediaList(prev => prev.filter(m => m.id !== mediaId));
     }
+  };
+
+  // Handle Reply button - open email client
+  const handleReply = (submission: ContactFormSubmission) => {
+    const subject = `Re: ${SERVICE_TYPES.find(s => s.value === submission.event_type)?.label} Inquiry`;
+    const body = `Dear ${submission.name},\n\nThank you for your interest in Satya Photography.\n\nRegarding your ${SERVICE_TYPES.find(s => s.value === submission.event_type)?.label} inquiry for ${new Date(submission.event_date).toLocaleDateString()}:\n\n${submission.message}\n\nWe would be delighted to discuss your requirements further.\n\nBest regards,\nSatya Photography Team\n\nContact: +91 8374877776\nEmail: Rajkarthikeya10@gmail.com`;
+
+    const mailtoLink = `mailto:${submission.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(mailtoLink, '_blank');
+  };
+
+  // Handle Mark Read button - send alert and mark as read
+  const handleMarkRead = (submission: ContactFormSubmission) => {
+    // Show alert message
+    alert(`✅ Inquiry from ${submission.name} has been marked as read.\n\nEvent: ${SERVICE_TYPES.find(s => s.value === submission.event_type)?.label}\nDate: ${new Date(submission.event_date).toLocaleDateString()}\nEmail: ${submission.email}\nPhone: ${submission.phone}`);
+
+    // You could update the submission status here if you had a status field
+    console.log(`Marked inquiry ${submission.id} as read`);
   };
 
   const filteredMedia = selectedCategory === 'all' 
