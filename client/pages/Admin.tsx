@@ -7,27 +7,29 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Upload, 
-  Camera, 
-  Image, 
-  Video, 
-  Trash2, 
-  Edit, 
-  Eye, 
+import {
+  Upload,
+  Camera,
+  Image,
+  Video,
+  Trash2,
+  Edit,
+  Eye,
   Plus,
   Filter,
   BarChart3,
   Users,
   MessageSquare,
-  Crown
+  Crown,
+  Mail,
+  CheckCircle
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { useAuth } from '@/contexts/SimpleAuthContext';
-import { supabase } from '@/lib/supabase';
 import type { Media, ServiceType, ContactFormSubmission } from '@shared/types';
 import { SERVICE_TYPES, MEDIA_TYPES } from '@shared/types';
+import MediaStore from '@/utils/mediaStore';
 
 export default function Admin() {
   const { appUser } = useAuth();
