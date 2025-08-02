@@ -84,6 +84,17 @@ class MediaStore {
     this.setAllInquiries(updatedInquiries);
   }
 
+  // Clear all demo data - ensure clean start
+  static clearAllData(): void {
+    try {
+      localStorage.removeItem(this.MEDIA_KEY);
+      localStorage.removeItem(this.INQUIRIES_KEY);
+      console.log('MediaStore: All data cleared');
+    } catch (error) {
+      console.error('Error clearing data:', error);
+    }
+  }
+
   // Convert file to base64 URL for storage
   static async fileToDataUrl(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
