@@ -136,8 +136,9 @@ export default function Index() {
                   alt={`Hero ${index + 1}`}
                   className="w-full h-full object-contain"
                   style={{
-                    backgroundColor: 'rgba(13, 13, 13, 0.9)',
-                    objectPosition: 'center center'
+                    backgroundColor: 'rgba(13, 13, 13, 0.95)',
+                    objectPosition: 'center center',
+                    filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 0.1))'
                   }}
                 />
               </div>
