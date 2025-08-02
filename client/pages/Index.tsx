@@ -213,7 +213,12 @@ export default function Index() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-5">
-            {categories.slice(0, 6).map((category, index) => (
+            {categories.slice(0, 6).map((category, index) => {
+              const imageUrl = getServiceImage(allMedia, category);
+              // Only render service cards that have real uploaded images
+              if (!imageUrl) return null;
+
+              return (
               <div
                 key={category}
                 className="luxury-service-container"
@@ -245,13 +250,7 @@ export default function Index() {
                 }}
               >
                 <img
-                  src={(() => {
-                    const serviceType = categoryMapping[category];
-                    const categoryMedia = allMedia.filter(m => m.service_type === serviceType && m.type === 'photo');
-                    const imageUrl = categoryMedia.length > 0 ? categoryMedia[0].url : getServiceFallbackImage(index);
-                    console.log(`Service ${category} (${serviceType}): found ${categoryMedia.length} images, using:`, imageUrl);
-                    return imageUrl;
-                  })()}
+                  src={imageUrl}
                   alt={category}
                   style={{
                     width: '100%',
@@ -277,7 +276,8 @@ export default function Index() {
                   </p>
                 </div>
               </div>
-            ))}
+            );
+            }).filter(Boolean)}
           </div>
         </div>
       </section>
