@@ -82,14 +82,16 @@ export default function Index() {
   useEffect(() => {
     const loadMedia = () => {
       const media = MediaStore.getAllMedia();
+      console.log('Home page loaded media:', media.length, 'items');
       setAllMedia(media);
 
       // Get photos for hero slideshow (prefer photos over videos)
       const photos = media.filter(m => m.type === 'photo');
       if (photos.length > 0) {
-        // Use first 3 photos, or repeat if less than 3
+        // Use first 3 photos, cycle through if more than 3
         const images = photos.slice(0, 3).map(p => p.url);
         setHeroImages(images);
+        console.log('Hero images set:', images.length, 'images');
       } else {
         // Fallback to demo images if no uploads
         setHeroImages([
@@ -97,12 +99,13 @@ export default function Index() {
           "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80",
           "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1920&q=80",
         ]);
+        console.log('Using fallback hero images');
       }
     };
 
     loadMedia();
-    // Refresh every 5 seconds to get new uploads
-    const interval = setInterval(loadMedia, 5000);
+    // Refresh every 3 seconds to get new uploads faster
+    const interval = setInterval(loadMedia, 3000);
 
     return () => clearInterval(interval);
   }, []);
