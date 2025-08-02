@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Camera, Mail, Lock, Eye, EyeOff, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import AdminBypass from '@/components/AdminBypass';
+import { useAuth } from '@/contexts/SimpleAuthContext';
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
