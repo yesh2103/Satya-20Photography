@@ -76,7 +76,8 @@ export default function Index() {
   useEffect(() => {
     const loadMedia = () => {
       const media = MediaStore.getAllMedia();
-      console.log('Home page loaded media:', media.length, 'items');
+      console.log('🏠 Home page loaded media:', media.length, 'items');
+      console.log('🏠 Media details:', media.map(m => ({ type: m.type, service: m.service_type, title: m.title })));
       setAllMedia(media);
 
       // Get photos for hero slideshow (prefer photos over videos)
