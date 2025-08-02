@@ -372,6 +372,17 @@ export default function Admin() {
                   </CardHeader>
                   <CardContent>
                     <form onSubmit={handleFileUpload} className="space-y-6">
+                      {/* Upload Status */}
+                      {uploadStatus && (
+                        <div className={`p-3 rounded-lg border ${
+                          uploadStatus.includes('✅') ? 'bg-green-900/20 border-green-800 text-green-400' :
+                          uploadStatus.includes('❌') ? 'bg-red-900/20 border-red-800 text-red-400' :
+                          'bg-blue-900/20 border-blue-800 text-blue-400'
+                        }`}>
+                          <p className="text-sm font-medium">{uploadStatus}</p>
+                        </div>
+                      )}
+
                       <div className="space-y-2">
                         <Label htmlFor="file" className="text-foreground">Select File *</Label>
                         <div className="border-2 border-dashed border-luxury-medium-gray rounded-lg p-8 text-center">
@@ -387,6 +398,11 @@ export default function Admin() {
                           <p className="text-sm text-muted-foreground mt-2">
                             Drag and drop or click to select photos and videos
                           </p>
+                          {uploadForm.file && (
+                            <p className="text-sm text-gold-400 mt-2">
+                              Selected: {uploadForm.file.name}
+                            </p>
+                          )}
                         </div>
                       </div>
 
