@@ -89,18 +89,34 @@ export default function Gallery() {
   const [selectedCategory, setSelectedCategory] = useState<ServiceType | "all">(
     "all",
   );
-  const [filteredMedia, setFilteredMedia] = useState<Media[]>(demoMedia);
+  const [allMedia, setAllMedia] = useState<Media[]>([]);
+  const [filteredMedia, setFilteredMedia] = useState<Media[]>([]);
   const [selectedMedia, setSelectedMedia] = useState<Media | null>(null);
 
   useEffect(() => {
+    // Load media from MediaStore
+    const loadMedia = () => {
+      const media = MediaStore.getAllMedia();
+      setAllMedia(media);
+    };
+
+    loadMedia();
+
+    // Set up interval to check for new uploads
+    const interval = setInterval(loadMedia, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     if (selectedCategory === "all") {
-      setFilteredMedia(demoMedia);
+      setFilteredMedia(allMedia);
     } else {
       setFilteredMedia(
-        demoMedia.filter((media) => media.service_type === selectedCategory),
+        allMedia.filter((media) => media.service_type === selectedCategory),
       );
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, allMedia]);
 
   const handleCategoryChange = (category: ServiceType | "all") => {
     setSelectedCategory(category);
