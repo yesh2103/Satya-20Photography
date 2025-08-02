@@ -62,35 +62,48 @@ export default function Admin() {
 
   const handleFileUpload = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!uploadForm.file) return;
+    if (!uploadForm.file) {
+      setUploadStatus('Please select a file to upload');
+      return;
+    }
 
     setIsUploading(true);
-    
-    try {
-      // In real implementation, upload to Supabase Storage
-      // const { data, error } = await supabase.storage
-      //   .from('media')
-      //   .upload(`${uploadForm.service_type}/${uploadForm.file.name}`, uploadForm.file);
+    setUploadStatus('Uploading file...');
 
-      // Simulate upload
+    try {
+      // Upload file using MediaStore
+      const newMedia = await MediaStore.uploadFile(
+        uploadForm.file,
+        uploadForm.title,
+        uploadForm.type,
+        uploadForm.service_type,
+        appUser?.id || 'admin-user-id'
+      );
+
+      // Update local state
+      setMediaList(prev => [newMedia, ...prev]);
+
+      // Reset form
+      setUploadForm({ title: '', type: 'photo', service_type: 'wedding', file: null });
+
+      // Clear file input
+      const fileInput = document.getElementById('file') as HTMLInputElement;
+      if (fileInput) fileInput.value = '';
+
+      setUploadStatus('✅ File uploaded successfully!');
+
       setTimeout(() => {
-        const newMedia: Media = {
-          id: Date.now().toString(),
-          title: uploadForm.title,
-          type: uploadForm.type,
-          service_type: uploadForm.service_type,
-          url: '/placeholder.svg',
-          uploaded_by: appUser?.id || 'owner-id',
-          created_at: new Date().toISOString()
-        };
-        
-        setMediaList(prev => [newMedia, ...prev]);
-        setUploadForm({ title: '', type: 'photo', service_type: 'wedding', file: null });
-        setIsUploading(false);
-      }, 2000);
-      
+        setUploadStatus('');
+      }, 3000);
+
     } catch (error) {
       console.error('Upload error:', error);
+      setUploadStatus('❌ Upload failed. Please try again.');
+
+      setTimeout(() => {
+        setUploadStatus('');
+      }, 3000);
+    } finally {
       setIsUploading(false);
     }
   };
