@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Camera, User, LogOut, Settings, Crown } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/SimpleAuthContext';
 
 export default function Navigation() {
   const { user, appUser, signOut, isOwner } = useAuth();
