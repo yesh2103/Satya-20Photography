@@ -24,7 +24,7 @@ import {
 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/contexts/SimpleAuthContext';
 import { supabase } from '@/lib/supabase';
 import type { Media, ServiceType, ContactFormSubmission } from '@shared/types';
 import { SERVICE_TYPES, MEDIA_TYPES } from '@shared/types';
