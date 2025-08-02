@@ -270,6 +270,7 @@ export default function Index() {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
+                    objectPosition: 'center center',
                     transition: 'transform 0.4s ease-in-out'
                   }}
                 />
