@@ -41,7 +41,7 @@ export default function About() {
     <div className="min-h-screen bg-background">
       <Navigation />
 
-      <div className="pt-24 pb-12 px-6">
+      <div className="pt-32 pb-12 px-6">
         <div className="container mx-auto">
           {/* Welcome Section */}
           <section className="text-center mb-20">
