@@ -117,9 +117,9 @@ export default function Login() {
             <div className="flex items-center justify-center mb-4">
               <Shield className="h-12 w-12 text-gold-400" />
             </div>
-            <h1 className="text-3xl font-serif mb-2 text-foreground">Admin Access Only</h1>
+            <h1 className="text-3xl font-serif mb-2 text-foreground">Admin Portal</h1>
             <p className="text-muted-foreground">
-              Restricted access for website administration
+              Secure access for authorized administrators
             </p>
           </div>
 
