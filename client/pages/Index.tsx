@@ -138,7 +138,11 @@ export default function Index() {
               <img
                 src={image}
                 alt={`Hero ${index + 1}`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
+                style={{
+                  objectPosition: 'center center',
+                  minHeight: '100vh'
+                }}
               />
             </div>
           ))}
