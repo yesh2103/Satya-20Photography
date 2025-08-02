@@ -480,6 +480,25 @@ export default function Admin() {
                         )}
                       </Button>
                     </form>
+
+                    {/* Test/Debug Section */}
+                    <div className="mt-8 p-4 border border-gold-400/30 rounded-lg">
+                      <h3 className="text-sm font-semibold text-gold-400 mb-2">Test Functions</h3>
+                      <div className="flex gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            MediaStore.clearAllData();
+                            window.location.reload();
+                          }}
+                          className="text-xs border-red-500 text-red-400 hover:bg-red-500 hover:text-white"
+                        >
+                          Clear All Data
+                        </Button>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               </TabsContent>
