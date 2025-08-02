@@ -87,13 +87,9 @@ export default function Index() {
         setHeroImages(images);
         console.log('Hero images set:', images.length, 'images');
       } else {
-        // Fallback to demo images if no uploads
-        setHeroImages([
-          "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=1920&q=80",
-          "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1920&q=80",
-          "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1920&q=80",
-        ]);
-        console.log('Using fallback hero images');
+        // No fallback images - show placeholder background if no uploads
+        setHeroImages([]);
+        console.log('No hero images available - using background only');
       }
     };
 
