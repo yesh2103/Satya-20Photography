@@ -67,7 +67,18 @@ export const SimpleAuthProvider = ({ children }: SimpleAuthProviderProps) => {
     // Set up a periodic check for session changes
     const interval = setInterval(checkSession, 500); // Check every 0.5 seconds
 
-    return () => clearInterval(interval);
+    // Auto-logout when window/tab closes
+    const handleBeforeUnload = () => {
+      directAuth.clearAdminSession();
+    };
+
+    // Add event listener for window close
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
   }, []);
 
   const signOut = async () => {
