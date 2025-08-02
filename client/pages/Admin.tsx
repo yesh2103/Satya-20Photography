@@ -48,74 +48,17 @@ export default function Admin() {
     file: null as File | null
   });
 
-  // Demo data - in real app this would come from Supabase
-  const demoMediaList: Media[] = [
-    {
-      id: '1',
-      title: 'Beautiful Wedding Ceremony',
-      type: 'photo',
-      service_type: 'wedding',
-      url: '/placeholder.svg',
-      uploaded_by: 'owner-id',
-      created_at: '2024-01-15T10:00:00Z'
-    },
-    {
-      id: '2',
-      title: 'Romantic Pre-wedding Shoot',
-      type: 'photo',
-      service_type: 'prewedding',
-      url: '/placeholder.svg',
-      uploaded_by: 'owner-id',
-      created_at: '2024-01-14T15:30:00Z'
-    },
-    {
-      id: '3',
-      title: 'Precious Newborn Moments',
-      type: 'photo',
-      service_type: 'newborn',
-      url: '/placeholder.svg',
-      uploaded_by: 'owner-id',
-      created_at: '2024-01-13T11:20:00Z'
-    },
-    {
-      id: '4',
-      title: 'Engagement Celebration',
-      type: 'video',
-      service_type: 'engagement',
-      url: '/placeholder.svg',
-      uploaded_by: 'owner-id',
-      created_at: '2024-01-12T16:45:00Z'
-    }
-  ];
-
-  const demoSubmissions: ContactFormSubmission[] = [
-    {
-      id: '1',
-      name: 'Priya Sharma',
-      email: 'priya@example.com',
-      phone: '+91 8374877776',
-      event_type: 'wedding',
-      event_date: '2024-06-15',
-      message: 'Looking for wedding photography for our destination wedding in Goa.',
-      submitted_at: '2024-01-20T14:30:00Z'
-    },
-    {
-      id: '2',
-      name: 'Arjun Patel',
-      email: 'arjun@example.com',
-      phone: '+91 87654 32109',
-      event_type: 'prewedding',
-      event_date: '2024-04-20',
-      message: 'Pre-wedding shoot in a natural outdoor setting.',
-      submitted_at: '2024-01-19T11:15:00Z'
-    }
-  ];
-
   useEffect(() => {
-    // Load media and submissions
-    setMediaList(demoMediaList);
-    setSubmissions(demoSubmissions);
+    // Load media and submissions from MediaStore
+    loadData();
   }, []);
+
+  const loadData = () => {
+    const media = MediaStore.getAllMedia();
+    const inquiries = MediaStore.getAllInquiries();
+    setMediaList(media);
+    setSubmissions(inquiries);
+  };
 
   const handleFileUpload = async (e: React.FormEvent) => {
     e.preventDefault();
