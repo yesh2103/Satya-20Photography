@@ -501,10 +501,21 @@ export default function Admin() {
                               Submitted: {new Date(submission.submitted_at).toLocaleString()}
                             </p>
                             <div className="flex space-x-2">
-                              <Button size="sm" className="bg-gold-400 text-luxury-black hover:bg-gold-500">
+                              <Button
+                                size="sm"
+                                className="bg-gold-400 text-luxury-black hover:bg-gold-500"
+                                onClick={() => handleReply(submission)}
+                              >
+                                <Mail className="h-4 w-4 mr-1" />
                                 Reply
                               </Button>
-                              <Button size="sm" variant="outline" className="border-luxury-medium-gray">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="border-luxury-medium-gray"
+                                onClick={() => handleMarkRead(submission)}
+                              >
+                                <CheckCircle className="h-4 w-4 mr-1" />
                                 Mark Read
                               </Button>
                             </div>
