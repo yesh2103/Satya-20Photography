@@ -39,17 +39,11 @@ const categories = [
   "Engagement",
 ];
 
-// Fallback images for services without uploaded content
-const getServiceFallbackImage = (index: number) => {
-  const serviceImages = [
-    'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?auto=format&fit=crop&w=800&q=80', // Wedding
-    'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80', // Pre-wedding
-    'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80', // Newborn
-    'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=800&q=80', // Birthdays
-    'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80', // Retirement
-    'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80', // Events
-  ];
-  return serviceImages[index] || serviceImages[0];
+// Only show real uploaded content - no fallback images
+const getServiceImage = (allMedia: Media[], category: string): string | null => {
+  const serviceType = categoryMapping[category];
+  const categoryMedia = allMedia.filter(m => m.service_type === serviceType && m.type === 'photo');
+  return categoryMedia.length > 0 ? categoryMedia[0].url : null;
 };
 
 const testimonials = [
