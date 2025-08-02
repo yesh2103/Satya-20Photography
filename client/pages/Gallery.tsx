@@ -99,7 +99,7 @@ export default function Gallery() {
                     : "border-luxury-medium-gray text-foreground hover:bg-gold-400 hover:text-luxury-black"
                 }
               >
-                All ({demoMedia.length})
+                All ({allMedia.length})
               </Button>
 
               {SERVICE_TYPES.map((service) => {
