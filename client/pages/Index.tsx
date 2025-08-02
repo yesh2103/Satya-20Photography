@@ -127,15 +127,32 @@ export default function Index() {
                   index === currentSlide ? "opacity-100" : "opacity-0"
                 }`}
               >
-                <img
-                  src={image}
-                  alt={`Hero ${index + 1}`}
-                  className="w-full h-full object-cover object-center"
+                <div
+                  className="absolute inset-0"
                   style={{
-                    objectPosition: 'center center',
-                    minHeight: '100vh'
+                    background: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center center',
+                    backgroundRepeat: 'no-repeat'
                   }}
                 />
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{
+                    background: 'rgba(0,0,0,0.2)'
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt={`Hero ${index + 1}`}
+                    className="max-w-full max-h-full object-contain"
+                    style={{
+                      maxHeight: '90vh',
+                      maxWidth: '90vw',
+                      filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.5))'
+                    }}
+                  />
+                </div>
               </div>
             ))
           ) : (
