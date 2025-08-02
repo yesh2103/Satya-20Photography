@@ -60,7 +60,7 @@ export default function Gallery() {
     <div className="min-h-screen" style={{ backgroundColor: '#0d0d0d', fontFamily: 'Cinzel, serif' }}>
       <Navigation />
 
-      <div className="pt-24 pb-12 px-6">
+      <div className="pt-32 pb-12 px-6">
         <div className="container mx-auto">
           {/* Page Header */}
           <div className="text-center mb-12">
